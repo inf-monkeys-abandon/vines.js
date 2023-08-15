@@ -24,7 +24,10 @@ export class VinesClient {
     this.options = options;
     this.options = Object.assign({}, DEFAULT_OPTIONS, options);
     if (!this.options.apiHost) {
-      throw new Error("Init VinesClient failed: baseUrl is empty");
+      throw new Error("Init VinesClient failed: apiHost is empty");
+    }
+    if (!this.options.apiKey) {
+      throw new Error("Init VinesClient failed: apiKey is empty");
     }
     this.httpClient = new HttpClient(this.options);
   }
