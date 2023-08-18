@@ -9,6 +9,7 @@ import type { UpdateWorkflowDefDto } from "./models/UpdateWorkflowDefDto";
 import type { CreateCredentialDto } from "./models/CreateCredentialDto";
 import type { CreateCredentialTypeDto } from "./models/CreateCredentialTypeDto";
 import type { CreateBlockDto } from "./models/CreateBlockDto";
+import type { ListBlocksResp } from "./models/ListBlocksResp";
 import type { CreateWorkflowTemplateDto } from "./models/CreateWorkflowTemplateDto";
 import type { ListWorkflowTemplateDto } from "./models/ListWorkflowTemplateDto";
 import type { UpdateWorkflowTemplateDto } from "./models/UpdateWorkflowTemplateDto";
@@ -391,14 +392,14 @@ export class VinesClient {
   /**
    * @summary 获取所有的 workflow blocks
    * @description 获取所有的 workflow blocks
-   * @returns any
+   * @returns ListBlocksResp
    */
-  public async getBlocks({
+  public async listBlocks({
     onlyCustom = false,
   }: {
     /** 是否只获取自定义的 Block **/
     onlyCustom?: boolean;
-  }): Promise<any> {
+  }): Promise<ListBlocksResp> {
     return await this.httpClient.request({
       method: "GET",
       url: "/api/blocks",
