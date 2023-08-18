@@ -6,12 +6,12 @@ import type { SearchWorkflowExecutionsDto } from "./models/SearchWorkflowExecuti
 import type { StartWorkflowDto } from "./models/StartWorkflowDto";
 import type { UpdateTaskStatusDto } from "./models/UpdateTaskStatusDto";
 import type { UpdateWorkflowDefDto } from "./models/UpdateWorkflowDefDto";
-import type { CreateBlockDto } from "./models/CreateBlockDto";
 import type { CreateCredentialDto } from "./models/CreateCredentialDto";
 import type { CreateCredentialTypeDto } from "./models/CreateCredentialTypeDto";
-import type { CreateWorkflowMarketDto } from "./models/CreateWorkflowMarketDto";
-import type { ListWorkflowMarketDto } from "./models/ListWorkflowMarketDto";
-import type { UpdateWorkflowMarketDto } from "./models/UpdateWorkflowMarketDto";
+import type { CreateBlockDto } from "./models/CreateBlockDto";
+import type { CreateWorkflowTemplateDto } from "./models/CreateWorkflowTemplateDto";
+import type { ListWorkflowTemplateDto } from "./models/ListWorkflowTemplateDto";
+import type { UpdateWorkflowTemplateDto } from "./models/UpdateWorkflowTemplateDto";
 
 import { HttpClient, RequestConfig } from "./http/HttpClient";
 import { DEFAULT_OPTIONS, VinesClientOptions } from "./VinesClientOptions";
@@ -37,31 +37,8 @@ export class VinesClient {
   }
 
   /**
-   * @returns any
-   */
-  public async createAuthCode(): Promise<any> {
-    return await this.httpClient.request({
-      method: "POST",
-      url: "/api/workflow/create-auth-code",
-      pathParams: {},
-    });
-  }
-
-  /**
-   * @returns any
-   */
-  public async getAuthToken({ code }: { code: string }): Promise<any> {
-    return await this.httpClient.request({
-      method: "GET",
-      url: "/api/workflow/get-auth-token",
-      params: {
-        code: code,
-      },
-      pathParams: {},
-    });
-  }
-
-  /**
+   * @summary 获取近期使用的 workflows
+   * @description 获取 7 天内更新过的 workflows
    * @returns any
    */
   public async getRecentlyUsedWorkflows(): Promise<any> {
@@ -87,16 +64,25 @@ export class VinesClient {
   }
 
   /**
-   * @summary 获取所有 workflow 定义
-   * @description 获取所有 workflow 定义
+   * @summary 获取工作流列表
+   * @description 获取工作流列表
    * @returns any
    */
-  public async listWorkflowDefs({ search }: { search: string }): Promise<any> {
+  public async listWorkflow({
+    page = 1,
+    limit = 10,
+  }: {
+    /** 当前页数，从 1 开始 **/
+    page?: number;
+    /** 每页数目，默认为 10 **/
+    limit?: number;
+  }): Promise<any> {
     return await this.httpClient.request({
       method: "GET",
       url: "/api/workflow",
       params: {
-        search: search,
+        page: page,
+        limit: limit,
       },
       pathParams: {},
     });
@@ -311,56 +297,6 @@ export class VinesClient {
   }
 
   /**
-   * @summary 获取所有的 workflow blocks
-   * @description 获取所有的 workflow blocks
-   * @returns any
-   */
-  public async getBlocks({
-    onlyCustom = false,
-  }: {
-    /** 是否只获取自定义的 Block **/
-    onlyCustom?: boolean;
-  }): Promise<any> {
-    return await this.httpClient.request({
-      method: "GET",
-      url: "/api/blocks",
-      params: {
-        onlyCustom: onlyCustom,
-      },
-      pathParams: {},
-    });
-  }
-
-  /**
-   * @summary 创建新的 Block
-   * @description 创建新的 Block
-   * @returns any
-   */
-  public async createBlock(requestBody: CreateBlockDto): Promise<any> {
-    return await this.httpClient.request({
-      method: "POST",
-      url: "/api/blocks",
-      pathParams: {},
-      data: requestBody,
-    });
-  }
-
-  /**
-   * @summary 获取 Block 详情
-   * @description 获取 Block 详情
-   * @returns any
-   */
-  public async getBlock({ blockName }: { blockName: string }): Promise<any> {
-    return await this.httpClient.request({
-      method: "GET",
-      url: "/api/blocks/{blockName}",
-      pathParams: {
-        blockName,
-      },
-    });
-  }
-
-  /**
    * @summary 获取所有的 credential 定义
    * @description 获取所有的 credential 定义
    * @returns any
@@ -453,35 +389,91 @@ export class VinesClient {
   }
 
   /**
+   * @summary 获取所有的 workflow blocks
+   * @description 获取所有的 workflow blocks
    * @returns any
    */
-  public async list(requestBody: ListWorkflowMarketDto): Promise<any> {
+  public async getBlocks({
+    onlyCustom = false,
+  }: {
+    /** 是否只获取自定义的 Block **/
+    onlyCustom?: boolean;
+  }): Promise<any> {
+    return await this.httpClient.request({
+      method: "GET",
+      url: "/api/blocks",
+      params: {
+        onlyCustom: onlyCustom,
+      },
+      pathParams: {},
+    });
+  }
+
+  /**
+   * @summary 创建新的 Block
+   * @description 创建新的 Block
+   * @returns any
+   */
+  public async createBlock(requestBody: CreateBlockDto): Promise<any> {
     return await this.httpClient.request({
       method: "POST",
-      url: "/api/flow-market/list",
+      url: "/api/blocks",
       pathParams: {},
       data: requestBody,
     });
   }
 
   /**
+   * @summary 获取 Block 详情
+   * @description 获取 Block 详情
    * @returns any
    */
-  public async getMyMarketList(): Promise<any> {
+  public async getBlock({ blockName }: { blockName: string }): Promise<any> {
     return await this.httpClient.request({
       method: "GET",
-      url: "/api/flow-market/mine",
+      url: "/api/blocks/{blockName}",
+      pathParams: {
+        blockName,
+      },
+    });
+  }
+
+  /**
+   * @summary 获取工作流模板列表
+   * @description 获取工作流模板列表
+   * @returns any
+   */
+  public async listTemplates(requestBody: ListWorkflowTemplateDto): Promise<any> {
+    return await this.httpClient.request({
+      method: "POST",
+      url: "/api/templates/list",
+      pathParams: {},
+      data: requestBody,
+    });
+  }
+
+  /**
+   * @summary 获取我的工作流模板
+   * @description 包含我创建的和我获取的工作流模板
+   * @returns any
+   */
+  public async listMyTemplates(): Promise<any> {
+    return await this.httpClient.request({
+      method: "GET",
+      url: "/api/templates/mine",
       pathParams: {},
     });
   }
 
   /**
+   * @summary 使用 workflowId 搜索工作流模板
+   * @description 使用 workflowId 搜索工作流模板
    * @returns any
    */
-  public async search(workflowId: string): Promise<any> {
+  public async findTemplateByWorkflowId(workflowId: string): Promise<any> {
     return await this.httpClient.request({
       method: "POST",
-      url: "/api/flow-market/search/{workflowId}",
+      url: "/api/templates/search/{workflowId}",
       pathParams: {
         workflowId,
       },
@@ -489,35 +481,41 @@ export class VinesClient {
   }
 
   /**
+   * @summary 创建工作流模板
+   * @description 创建工作流模板
    * @returns any
    */
-  public async create(requestBody: CreateWorkflowMarketDto): Promise<any> {
+  public async createTemplate(requestBody: CreateWorkflowTemplateDto): Promise<any> {
     return await this.httpClient.request({
       method: "POST",
-      url: "/api/flow-market/create",
+      url: "/api/templates/create",
       pathParams: {},
       data: requestBody,
     });
   }
 
   /**
+   * @summary 获取工作流模板分类
+   * @description 获取工作流模板分类
    * @returns any
    */
-  public async listCategories(): Promise<any> {
+  public async listTemplateCategories(): Promise<any> {
     return await this.httpClient.request({
       method: "GET",
-      url: "/api/flow-market/categories",
+      url: "/api/templates/categories",
       pathParams: {},
     });
   }
 
   /**
+   * @summary 使用指定的模板创建工作流
+   * @description 使用指定的模板创建工作流
    * @returns any
    */
-  public async clone(id: string): Promise<any> {
+  public async forkTemplate(id: string): Promise<any> {
     return await this.httpClient.request({
       method: "POST",
-      url: "/api/flow-market/{id}/fork",
+      url: "/api/templates/{id}/fork",
       pathParams: {
         id,
       },
@@ -525,12 +523,14 @@ export class VinesClient {
   }
 
   /**
+   * @summary 获取指定的工作流模板
+   * @description 获取指定的工作流模板
    * @returns any
    */
-  public async getItem({ id }: { id: string }): Promise<any> {
+  public async getTemplateById({ id }: { id: string }): Promise<any> {
     return await this.httpClient.request({
       method: "GET",
-      url: "/api/flow-market/{id}",
+      url: "/api/templates/{id}",
       pathParams: {
         id,
       },
@@ -538,12 +538,14 @@ export class VinesClient {
   }
 
   /**
+   * @summary 更新指定的工作流模板
+   * @description 更新指定的工作流模板
    * @returns any
    */
-  public async update(id: string, requestBody: UpdateWorkflowMarketDto): Promise<any> {
+  public async updateTemplateById(id: string, requestBody: UpdateWorkflowTemplateDto): Promise<any> {
     return await this.httpClient.request({
       method: "PUT",
-      url: "/api/flow-market/{id}",
+      url: "/api/templates/{id}",
       pathParams: {
         id,
       },
@@ -552,15 +554,40 @@ export class VinesClient {
   }
 
   /**
+   * @summary 删除指定的工作流模板
+   * @description 删除指定的工作流模板
    * @returns any
    */
-  public async remove(id: string): Promise<any> {
+  public async removeTemplateById(id: string): Promise<any> {
     return await this.httpClient.request({
       method: "DELETE",
-      url: "/api/flow-market/{id}",
+      url: "/api/templates/{id}",
       pathParams: {
         id,
       },
+    });
+  }
+
+  /**
+   * @returns any
+   */
+  public async listPublicViews({
+    page = 1,
+    limit = 10,
+  }: {
+    /** 当前页数，从 1 开始 **/
+    page?: number;
+    /** 每页数目，默认为 10 **/
+    limit?: number;
+  }): Promise<any> {
+    return await this.httpClient.request({
+      method: "GET",
+      url: "/api/views/public",
+      params: {
+        page: page,
+        limit: limit,
+      },
+      pathParams: {},
     });
   }
 }

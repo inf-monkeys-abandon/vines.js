@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type ListWorkflowMarketDto = {
+export type ListWorkflowTemplateDto = {
     /**
      * 当前页数，从 1 开始
      */
