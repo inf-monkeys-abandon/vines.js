@@ -5,7 +5,7 @@ const prettier = require('prettier/standalone');
 const plugin = require('prettier/parser-typescript');
 
 const modify = (code) => {
-  code = code.replace(new RegExp(' declare', 'g'), '');
+  // code = code.replace(new RegExp(' declare', 'g'), '');
   return code.split('\n').filter((s) => !s.includes('import ')).join('\n');
 };
 
