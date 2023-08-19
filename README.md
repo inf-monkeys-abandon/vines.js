@@ -2,14 +2,16 @@
 
 ### 安装
 
-```
-yarn add vines.js
+安装前需要配置 `.npmrc`，请联系其他研发同学。
+
+```sh
+npm install @inf-monkeys/vines
 ```
 
 ### 初始化
 
 ```typescript
-import { VinesClient } from "vines.js";
+import { VinesClient } from "@inf-monkeys/vines";
 
 const client = new VinesClient({
   apiKey: "YOUR_VINES_API_KEY",
@@ -19,7 +21,7 @@ const client = new VinesClient({
 ### 使用示例
 
 ```typescript
-import { VinesClient } from "vines.js";
+import { VinesClient } from "@inf-monkeys/vines";
 
 const client = new VinesClient({
   apiKey: "YOUR_VINES_API_KEY",
