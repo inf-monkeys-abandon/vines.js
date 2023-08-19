@@ -9,7 +9,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "tsc & npm run build:types",
+    "build": "tsc",
     "build:types": "node scripts/build-client-dto-types.js"
   },
   "dependencies": {
