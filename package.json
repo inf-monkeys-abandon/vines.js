@@ -10,7 +10,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "build:types": "node scripts/build-client-dto-types.js"
+    "build:types": "node scripts/build-all-types.js"
   },
   "dependencies": {
     "axios": "^1.4.0"
