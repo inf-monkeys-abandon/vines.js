@@ -2,7 +2,7 @@
   "name": "@inf-monkeys/vines",
   "version": "0.0.2",
   "main": "lib/index.js",
-  "types": "lib.index.d.ts",
+  "types": "lib/index.d.ts",
   "files": [
     "lib",
     "src"
