@@ -6,13 +6,7 @@ const plugin = require('prettier/parser-typescript');
 
 const modify = (code) => {
   code = code.replace(new RegExp(' declare', 'g'), '');
-  // convert type to class
-  return code.split('\n').filter((s) => !s.includes('import ')).map(s => {
-    if (s.includes('type') && s.includes('=')) {
-      s = s.replace('type', 'class').replace('=', '');
-    }
-    return s;
-  }).join('\n');
+  return code.split('\n').filter((s) => !s.includes('import ')).join('\n');
 };
 
 const readFileSyncAndModify = (filePath) => {
