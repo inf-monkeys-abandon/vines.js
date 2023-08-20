@@ -6,7 +6,7 @@ const plugin = require('prettier/parser-typescript');
 
 const modify = (code) => {
   code = code.replace(new RegExp(' declare', 'g'), '');
-  return code.split('\n').filter((s) => !s.includes('import ')).join('\n');
+  return code.split('\n').filter((s) => !s.includes('import ') && !s.includes('= {}')).join('\n');
 };
 
 const readFileSyncAndModify = (filePath) => {

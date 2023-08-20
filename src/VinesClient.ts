@@ -9,9 +9,17 @@ import type { UpdateWorkflowDefDto } from './models/UpdateWorkflowDefDto';
 import type { CreateCredentialDto } from './models/CreateCredentialDto';
 import type { CreateCredentialTypeDto } from './models/CreateCredentialTypeDto';
 import type { CreateBlockDto } from './models/CreateBlockDto';
+import type { CreateBlockResp } from './models/CreateBlockResp';
+import type { GetBlockResp } from './models/GetBlockResp';
 import type { ListBlocksResp } from './models/ListBlocksResp';
+import type { CommonBooleanResposeDto } from './models/CommonBooleanResposeDto';
 import type { CreateWorkflowTemplateDto } from './models/CreateWorkflowTemplateDto';
+import type { ForkTemplateResp } from './models/ForkTemplateResp';
+import type { ListMyTemplatesResp } from './models/ListMyTemplatesResp';
+import type { ListWorkflowTemplatesCategoriesResp } from './models/ListWorkflowTemplatesCategoriesResp';
+import type { ListWorkflowTemplatesResp } from './models/ListWorkflowTemplatesResp';
 import type { UpdateWorkflowTemplateDto } from './models/UpdateWorkflowTemplateDto';
+import type { WorkflowTemplatesResp } from './models/WorkflowTemplatesResp';
 import type { CreateWorkflowViewDto } from './models/CreateWorkflowViewDto';
 import type { UpsertWorkflowViewRelationDto } from './models/UpsertWorkflowViewRelationDto';
 
@@ -462,10 +470,10 @@ public async listBlocks({
 /**
  * @summary 创建新的 Block
  * @description 创建新的 Block
- * @returns any
+ * @returns CreateBlockResp
  */
 public async createBlock(requestBody: CreateBlockDto,
-): Promise<any> {
+): Promise<CreateBlockResp> {
     return await this.httpClient.request({
         method: 'POST',
         url: '/api/blocks',
@@ -479,13 +487,13 @@ public async createBlock(requestBody: CreateBlockDto,
 /**
  * @summary 获取 Block 详情
  * @description 获取 Block 详情
- * @returns any
+ * @returns GetBlockResp
  */
 public async getBlock({
     blockName,
 }: {
     blockName: string,
-}): Promise<any> {
+}): Promise<GetBlockResp> {
     return await this.httpClient.request({
         method: 'GET',
         url: '/api/blocks/{blockName}',
@@ -498,7 +506,7 @@ public async getBlock({
 /**
  * @summary 获取工作流模板列表
  * @description 获取工作流模板列表
- * @returns any
+ * @returns ListWorkflowTemplatesResp
  */
 public async listTemplates({
     page = 1,
@@ -517,7 +525,7 @@ public async listTemplates({
     orderBy?: 'downloadCount' | 'updatedTimestamp',
     /** 关键词，提供则对关键词进行搜索 **/
     freeText?: string,
-}): Promise<any> {
+}): Promise<ListWorkflowTemplatesResp> {
     return await this.httpClient.request({
         method: 'GET',
         url: '/api/templates',
@@ -541,9 +549,9 @@ public async listTemplates({
 /**
  * @summary 获取我的工作流模板
  * @description 包含我创建的和我获取的工作流模板
- * @returns any
+ * @returns ListMyTemplatesResp
  */
-public async listMyTemplates(): Promise<any> {
+public async listMyTemplates(): Promise<ListMyTemplatesResp> {
     return await this.httpClient.request({
         method: 'GET',
         url: '/api/templates/mine',
@@ -555,10 +563,10 @@ public async listMyTemplates(): Promise<any> {
 /**
  * @summary 使用 workflowId 搜索工作流模板
  * @description 使用 workflowId 搜索工作流模板
- * @returns any
+ * @returns WorkflowTemplatesResp
  */
 public async findTemplateByWorkflowId(workflowId: string,
-): Promise<any> {
+): Promise<WorkflowTemplatesResp> {
     return await this.httpClient.request({
         method: 'POST',
         url: '/api/templates/search/{workflowId}',
@@ -588,9 +596,9 @@ public async createTemplate(requestBody: CreateWorkflowTemplateDto,
 /**
  * @summary 获取工作流模板分类
  * @description 获取工作流模板分类
- * @returns any
+ * @returns ListWorkflowTemplatesCategoriesResp
  */
-public async listTemplateCategories(): Promise<any> {
+public async listTemplateCategories(): Promise<ListWorkflowTemplatesCategoriesResp> {
     return await this.httpClient.request({
         method: 'GET',
         url: '/api/templates/categories',
@@ -602,10 +610,10 @@ public async listTemplateCategories(): Promise<any> {
 /**
  * @summary 使用指定的模板创建工作流
  * @description 使用指定的模板创建工作流
- * @returns any
+ * @returns ForkTemplateResp
  */
 public async forkTemplate(id: string,
-): Promise<any> {
+): Promise<ForkTemplateResp> {
     return await this.httpClient.request({
         method: 'POST',
         url: '/api/templates/{id}/fork',
@@ -618,13 +626,13 @@ public async forkTemplate(id: string,
 /**
  * @summary 获取指定的工作流模板
  * @description 获取指定的工作流模板
- * @returns any
+ * @returns WorkflowTemplatesResp
  */
 public async getTemplateById({
     id,
 }: {
     id: string,
-}): Promise<any> {
+}): Promise<WorkflowTemplatesResp> {
     return await this.httpClient.request({
         method: 'GET',
         url: '/api/templates/{id}',
@@ -637,11 +645,11 @@ public async getTemplateById({
 /**
  * @summary 更新指定的工作流模板
  * @description 更新指定的工作流模板
- * @returns any
+ * @returns WorkflowTemplatesResp
  */
 public async updateTemplateById(id: string,
 requestBody: UpdateWorkflowTemplateDto,
-): Promise<any> {
+): Promise<WorkflowTemplatesResp> {
     return await this.httpClient.request({
         method: 'PUT',
         url: '/api/templates/{id}',
@@ -656,10 +664,10 @@ requestBody: UpdateWorkflowTemplateDto,
 /**
  * @summary 删除指定的工作流模板
  * @description 删除指定的工作流模板
- * @returns any
+ * @returns CommonBooleanResposeDto
  */
 public async removeTemplateById(id: string,
-): Promise<any> {
+): Promise<CommonBooleanResposeDto> {
     return await this.httpClient.request({
         method: 'DELETE',
         url: '/api/templates/{id}',
