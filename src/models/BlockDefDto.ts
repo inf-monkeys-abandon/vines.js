@@ -172,7 +172,7 @@ export interface BlockDefinition {
   displayName: string;
   description?: string;
   icon?: string;
-  properties: BlockDefProperties[];
+  input: BlockDefProperties[];
   output: BlockDefOutput[];
   categories?: BlockDefCategory[];
 }
