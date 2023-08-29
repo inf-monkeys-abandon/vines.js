@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { INodeProperties } from './INodeProperties';
+import type { BlockDefProperties } from './BlockDefProperties';
 import type { WorkflowDefinition } from './WorkflowDefinition';
 
 export type WorkflowDto = {
@@ -57,7 +57,7 @@ export type WorkflowDto = {
     /**
      * 变量
      */
-    variables?: Array<INodeProperties>;
+    variables?: Array<BlockDefProperties>;
     /**
      * 从其派生的流程 ID
      */

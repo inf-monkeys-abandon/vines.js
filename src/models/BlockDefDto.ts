@@ -4,7 +4,7 @@ export interface IJSONObject {
   [x: string]: IJSONValue;
 }
 
-export type NodePropertyTypes =
+export type BlockDefPropertyTypes =
   | 'boolean'
   | 'collection'
   | 'color'
@@ -59,7 +59,7 @@ export type UploadOptions = {
   fileSizeMb?: number;
 };
 
-export interface INodePropertyTypeOptions {
+export interface BlockDefPropertyTypeOptions {
   alwaysOpenEditWindow?: boolean; // Supported by: json
   codeAutocomplete?: CodeAutocompleteTypes; // Supported by: string
   editor?: EditorType; // Supported by: string
@@ -79,7 +79,7 @@ export interface INodePropertyTypeOptions {
   [key: string]: any;
 }
 
-export type NodeParameterValue = string | number | boolean | undefined | null;
+export type BlockDefParameterValue = string | number | boolean | undefined | null;
 
 export type ResourceLocatorModes = 'id' | 'url' | 'list' | string;
 export interface IResourceLocatorResult {
@@ -88,72 +88,70 @@ export interface IResourceLocatorResult {
   url?: string;
 }
 
-export interface INodeParameters {
-  [key: string]: NodeParameterValueType;
+export interface BlockDefParameter {
+  [key: string]: BlockDefParameterValueType;
 }
-export type NodeParameterValueType =
+export type BlockDefParameterValueType =
   // TODO: Later also has to be possible to add multiple ones with the name name. So array has to be possible
-  NodeParameterValue | INodeParameters | NodeParameterValue[] | INodeParameters[];
+  BlockDefParameterValue | BlockDefParameter | BlockDefParameterValue[] | BlockDefParameter[];
 
-export interface IDisplayOptions {
+export interface BlockDefDisplayOptions {
   hide?: {
-    [key: string]: NodeParameterValue[] | undefined;
+    [key: string]: BlockDefParameterValue[] | undefined;
   };
   show?: {
-    [key: string]: NodeParameterValue[] | undefined;
+    [key: string]: BlockDefParameterValue[] | undefined;
   };
 }
 
-export interface INodePropertyOptions {
+export interface BlockDefPropertyOptions {
   name: string;
   value: string | number | boolean;
   action?: string;
   description?: string;
 }
 
-export interface INodePropertyCollection {
+export interface BlockDefPropertyCollection {
   displayName: string;
   name: string;
-  values: INodeProperties[];
+  values: BlockDefProperties[];
 }
 
-export interface INodePropertyValueExtractorBase {
+export interface BlockDefPropertyValueExtractorBase {
   type: string;
 }
 
-export interface INodePropertyValueExtractorRegex extends INodePropertyValueExtractorBase {
+export interface BlockDefPropertyValueExtractorRegex {
   type: 'regex';
   regex: string | RegExp;
 }
 
-export type INodePropertyValueExtractor = INodePropertyValueExtractorRegex;
-
-export interface INodeProperties {
+export interface BlockDefProperties {
   displayName: string;
   name: string;
-  type: NodePropertyTypes;
-  typeOptions?: INodePropertyTypeOptions;
-  default?: NodeParameterValueType;
+  type: BlockDefPropertyTypes;
+  typeOptions?: BlockDefPropertyTypeOptions;
+  default?: BlockDefParameterValueType;
   description?: string;
   hint?: string;
-  displayOptions?: IDisplayOptions;
-  options?: Array<INodePropertyOptions | INodeProperties | INodePropertyCollection>;
+  displayOptions?: BlockDefDisplayOptions;
+  options?: Array<BlockDefPropertyOptions | BlockDefProperties | BlockDefPropertyCollection>;
   placeholder?: string;
   isNodeSetting?: boolean;
   noDataExpression?: boolean;
   required?: boolean;
   example?: string;
-  extractValue?: INodePropertyValueExtractor;
+  extractValue?: BlockDefPropertyValueExtractorRegex;
 }
 
-export interface INodeOutput {
+export interface BlockDefOutput {
   name: string;
   displayName: string;
-  type: NodePropertyTypes;
+  type: BlockDefPropertyTypes;
   description?: string;
 }
 
-export type INodeCategory = 'image' | 'llm' | 'progress' | 'im' | 'bio' | 'common';
+export type BlockDefCategory = 'image' | 'llm' | 'text' | 'progress' | 'im' | 'bio' | 'common';
 
 export enum BlockType {
   SIMPLE = 'SIMPLE',
@@ -168,13 +166,13 @@ export enum BlockType {
   SUB_WORKFLOW = 'SUB_WORKFLOW',
 }
 
-export interface INodeTypeDescription {
+export interface BlockDefinition {
   type: BlockType;
   name: string;
   displayName: string;
   description?: string;
   icon?: string;
-  properties: INodeProperties[];
-  output: INodeOutput[];
-  categories?: INodeCategory[];
+  properties: BlockDefProperties[];
+  output: BlockDefOutput[];
+  categories?: BlockDefCategory[];
 }

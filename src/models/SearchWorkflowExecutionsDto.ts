@@ -23,6 +23,10 @@ export type SearchWorkflowExecutionsDto = {
      */
     status?: Array<'RUNNING' | 'COMPLETED' | 'FAILED' | 'TIMED_OUT' | 'TERMINATED' | 'PAUSED'>;
     /**
+     * 启动工作流的用户 ID，支持同时传多个用户
+     */
+    startBy?: Array<string>;
+    /**
      * 执行开始时间（毫秒时间戳）
      */
     startTimeFrom?: number;

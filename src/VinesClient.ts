@@ -21,6 +21,7 @@ import type { ListWorkflowTemplatesResp } from './models/ListWorkflowTemplatesRe
 import type { UpdateWorkflowTemplateDto } from './models/UpdateWorkflowTemplateDto';
 import type { WorkflowTemplatesResp } from './models/WorkflowTemplatesResp';
 import type { CreateWorkflowViewDto } from './models/CreateWorkflowViewDto';
+import type { UpdateWorkflowViewDto } from './models/UpdateWorkflowViewDto';
 import type { UpsertWorkflowViewRelationDto } from './models/UpsertWorkflowViewRelationDto';
 
 import { HttpClient, RequestConfig } from "./http/HttpClient";
@@ -756,7 +757,7 @@ public async listTeamViews({
  * @returns any
  */
 public async updateView(id: string,
-requestBody: UpdateWorkflowDefDto,
+requestBody: UpdateWorkflowViewDto,
 ): Promise<any> {
     return await this.httpClient.request({
         method: 'PUT',
@@ -861,7 +862,7 @@ public async removeWorkflowViewRelations(relationsId: string,
  * @description 查询工作流关联的视图
  * @returns any
  */
-public async getRelations({
+public async getViewsByWorkflowId({
     workflowId,
 }: {
     workflowId: string,
