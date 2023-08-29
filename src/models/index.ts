@@ -1,4 +1,4 @@
-export * from './BlockDefProperties';
+export * from './BlockDefDto';
 export * from './BlockDto';
 export * from './CommonBooleanResposeDto';
 export * from './CreateBlockCredentialDto';
@@ -26,8 +26,7 @@ export * from './UpdateWorkflowTemplateDto';
 export * from './UpdateWorkflowViewDto';
 export * from './UpsertWorkflowViewRelationDto';
 export * from './UserInfoDto';
-export * from './WorkflowDefinition';
+export * from './WorkflowDefDto';
 export * from './WorkflowDto';
-export * from './WorkflowTemplateCategory';
 export * from './WorkflowTemplateDetailDto';
 export * from './WorkflowTemplatesResp';
