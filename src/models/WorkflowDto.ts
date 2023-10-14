@@ -66,8 +66,4 @@ export type WorkflowDto = {
      * 是否隐藏
      */
     hidden?: boolean;
-    /**
-     * 主工作流 ID
-     */
-    masterWorkflowId?: string;
 };

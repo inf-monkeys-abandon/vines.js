@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { UpdateWorkflowTriggerDto } from './UpdateWorkflowTriggerDto';
 import type { WorkflowDefinition } from './WorkflowDefinition';
 
 export type UpdateWorkflowDefDto = {
@@ -29,4 +30,8 @@ export type UpdateWorkflowDefDto = {
      * workflow 全局变量（非 conductor 能力）
      */
     variables?: Array<string>;
+    /**
+     * 触发器配置
+     */
+    trigger?: UpdateWorkflowTriggerDto;
 };

@@ -51,6 +51,8 @@ export namespace BlockDto {
         TERMINATE = 'TERMINATE',
         HUMAN = 'HUMAN',
         SUB_WORKFLOW = 'SUB_WORKFLOW',
+        INLINE = 'INLINE',
+        SET_VARIABLE = 'SET_VARIABLE',
     }
 
 

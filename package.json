@@ -13,6 +13,7 @@
     "build:types": "node scripts/build-all-types.js"
   },
   "dependencies": {
+    "@types/axios": "^0.14.0",
     "axios": "^1.4.0"
   },
   "devDependencies": {

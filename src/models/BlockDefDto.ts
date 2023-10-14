@@ -5,41 +5,49 @@ export interface IJSONObject {
 }
 
 export type BlockDefPropertyTypes =
-  | 'boolean'
-  | 'collection'
-  | 'color'
-  | 'dateTime'
-  | 'fixedCollection'
-  | 'hidden'
-  | 'json'
-  | 'notice'
-  | 'multiOptions'
-  | 'number'
-  | 'options'
-  | 'string'
-  | 'credentialsSelect'
-  | 'resourceLocator'
-  | 'curlImport'
-  | 'resourceMapper'
+  | "boolean"
+  | "collection"
+  | "color"
+  | "dateTime"
+  | "fixedCollection"
+  | "hidden"
+  | "json"
+  | "notice"
+  | "multiOptions"
+  | "number"
+  | "options"
+  | "string"
+  | "credentialsSelect"
+  | "resourceLocator"
+  | "curlImport"
+  | "resourceMapper"
   // 代码输入框
-  | 'jsCode'
+  | "jsCode"
   // 多字段的对象
-  | 'multiFieldObject'
-  | 'any'
-  | 'jsonObject';
+  | "multiFieldObject"
+  | "any"
+  | "jsonObject";
 
-export const CODE_LANGUAGES = ['javaScript', 'json', 'python'] as const;
-export const CODE_EXECUTION_MODES = ['runOnceForAllItems', 'runOnceForEachItem'] as const;
+export const CODE_LANGUAGES = ["javaScript", "json", "python"] as const;
+export const CODE_EXECUTION_MODES = ["runOnceForAllItems", "runOnceForEachItem"] as const;
 
-export type CodeAutocompleteTypes = 'function' | 'functionItem';
-export type EditorType = 'code' | 'codeNodeEditor' | 'htmlEditor' | 'sqlEditor' | 'json';
-export type CodeNodeEditorLanguage = (typeof CODE_LANGUAGES)[number];
-export type CodeExecutionMode = (typeof CODE_EXECUTION_MODES)[number];
-export type SQLDialect = 'StandardSQL' | 'PostgreSQL' | 'MySQL' | 'MariaSQL' | 'MSSQL' | 'SQLite' | 'Cassandra' | 'PLSQL';
+export type CodeAutocompleteTypes = "function" | "functionItem";
+export type EditorType = "code" | "codeNodeEditor" | "htmlEditor" | "sqlEditor" | "json";
+export type CodeNodeEditorLanguage = typeof CODE_LANGUAGES[number];
+export type CodeExecutionMode = typeof CODE_EXECUTION_MODES[number];
+export type SQLDialect =
+  | "StandardSQL"
+  | "PostgreSQL"
+  | "MySQL"
+  | "MariaSQL"
+  | "MSSQL"
+  | "SQLite"
+  | "Cassandra"
+  | "PLSQL";
 
 export interface ResourceMapperTypeOptions {
   resourceMapperMethod: string;
-  mode: 'add' | 'update' | 'upsert';
+  mode: "add" | "update" | "upsert";
   fieldWords?: { singular: string; plural: string };
   addAllFields?: boolean;
   noFieldsError?: string;
@@ -81,7 +89,7 @@ export interface BlockDefPropertyTypeOptions {
 
 export type BlockDefParameterValue = string | number | boolean | undefined | null;
 
-export type ResourceLocatorModes = 'id' | 'url' | 'list' | string;
+export type ResourceLocatorModes = "id" | "url" | "list" | string;
 export interface IResourceLocatorResult {
   name: string;
   value: string;
@@ -122,7 +130,7 @@ export interface BlockDefPropertyValueExtractorBase {
 }
 
 export interface BlockDefPropertyValueExtractorRegex {
-  type: 'regex';
+  type: "regex";
   regex: string | RegExp;
 }
 
@@ -151,19 +159,33 @@ export interface BlockDefOutput {
   description?: string;
 }
 
-export type BlockDefCategory = 'image' | 'llm' | 'text' | 'progress' | 'im' | 'bio' | 'common';
+export type BlockDefCategory = "image" | "llm" | "text" | "progress" | "im" | "bio" | "common";
 
 export enum BlockType {
-  SIMPLE = 'SIMPLE',
-  FORK_JOIN = 'FORK_JOIN',
-  JOIN = 'JOIN',
-  DO_WHILE = 'DO_WHILE',
-  SWITCH = 'SWITCH',
-  DYNAMIC = 'DYNAMIC',
-  FORK_JOIN_DYNAMIC = 'FORK_JOIN_DYNAMIC',
-  TERMINATE = 'TERMINATE',
-  HUMAN = 'HUMAN',
-  SUB_WORKFLOW = 'SUB_WORKFLOW',
+  SIMPLE = "SIMPLE",
+  FORK_JOIN = "FORK_JOIN",
+  JOIN = "JOIN",
+  DO_WHILE = "DO_WHILE",
+  SWITCH = "SWITCH",
+  DYNAMIC = "DYNAMIC",
+  FORK_JOIN_DYNAMIC = "FORK_JOIN_DYNAMIC",
+  TERMINATE = "TERMINATE",
+  HUMAN = "HUMAN",
+  SUB_WORKFLOW = "SUB_WORKFLOW",
+}
+
+export interface BlockRuleItem {
+  type: string;
+  [x: string]: any;
+}
+
+export interface BlockExtraInfo {
+  [x: string]: any;
+}
+
+export interface BlockCredentialItem {
+  name: string;
+  required: boolean;
 }
 
 export interface BlockDefinition {
@@ -175,4 +197,7 @@ export interface BlockDefinition {
   input: BlockDefProperties[];
   output: BlockDefOutput[];
   categories?: BlockDefCategory[];
+  rules?: BlockRuleItem[];
+  extra?: BlockExtraInfo;
+  credentials?: BlockCredentialItem[];
 }

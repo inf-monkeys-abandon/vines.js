@@ -23,6 +23,10 @@ export type CreateWorkflowViewDto = {
      * 代码
      */
     code?: string;
+    /**
+     * 模板视图 ID，如果视图是另一个视图的副本则必填
+     */
+    cover?: string;
 };
 
 export namespace CreateWorkflowViewDto {

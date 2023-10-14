@@ -18,7 +18,7 @@ export type CreateCredentialTypeDto = {
     /**
      * 密钥类型
      */
-    type?: string;
+    name?: string;
     /**
      * LOGO
      */
