@@ -159,7 +159,7 @@ export interface BlockDefOutput {
   description?: string;
 }
 
-export type BlockDefCategory = "image" | "llm" | "text" | "progress" | "im" | "bio" | "common";
+export type BlockDefCategory = "image" | "llm" | "text" | "progress" | "im" | "bio" | "common" | "modelEnhance";
 
 export enum BlockType {
   SIMPLE = "SIMPLE",
