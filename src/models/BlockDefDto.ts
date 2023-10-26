@@ -200,4 +200,8 @@ export interface BlockDefinition {
   rules?: BlockRuleItem[];
   extra?: BlockExtraInfo;
   credentials?: BlockCredentialItem[];
+  blockStatus: 'available' | 'unavailable'| 'unknown'| 'info';
+  totalCheckCount?: number;
+  availableCount?: number;
+  availability?: number;
 }
