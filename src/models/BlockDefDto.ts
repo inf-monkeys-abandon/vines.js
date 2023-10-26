@@ -201,8 +201,8 @@ export interface BlockDefinition {
   extra?: BlockExtraInfo;
   credentials?: BlockCredentialItem[];
   lastHealthCheckTime?: number;
-  blockStatus: 'available' | 'unavailable'| 'unknown'| 'info';
-  totalCheckCount?: number;
-  availableCount?: number;
-  availability?: number;
+  blockStatus?: string,
+  totalCheckCount?: number,
+  availableCount?: number,
+  availability?: number,
 }

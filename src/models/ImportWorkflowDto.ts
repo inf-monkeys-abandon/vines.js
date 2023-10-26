@@ -4,11 +4,15 @@
 
 import type { WorkflowDefinition } from './WorkflowDefinition';
 
-export type UpdateWorkflowDefDto = {
+export type ImportWorkflowDto = {
+    /**
+     * conductor workflow json 定义
+     */
+    workflowDef: WorkflowDefinition;
     /**
      * 工作流名称
      */
-    name?: string;
+    name: string;
     /**
      * 工作流描述
      */
@@ -18,15 +22,11 @@ export type UpdateWorkflowDefDto = {
      */
     logo?: string;
     /**
-     * 工作流是否激活
-     */
-    active?: boolean;
-    /**
-     * conductor workflow json 定义
-     */
-    workflowDef?: WorkflowDefinition;
-    /**
-     * workflow 全局变量（非 conductor 能力）
+     * 表单配置
      */
     variables?: Array<string>;
+    /**
+     * 触发器配置
+     */
+    triggers?: Array<string>;
 };

@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type UpdateWorkflowTriggerDto = {
+export type CreateWorkflowTriggerDto = {
     /**
      * 触发器类型
      */
-    type: UpdateWorkflowTriggerDto.type;
+    triggerType: CreateWorkflowTriggerDto.triggerType;
     /**
      * corn 表达式，SCHEDULER 类型触发器必填
      */
@@ -17,12 +17,12 @@ export type UpdateWorkflowTriggerDto = {
     enabled: boolean;
 };
 
-export namespace UpdateWorkflowTriggerDto {
+export namespace CreateWorkflowTriggerDto {
 
     /**
      * 触发器类型
      */
-    export enum type {
+    export enum triggerType {
         MANUAL = 'MANUAL',
         SCHEDULER = 'SCHEDULER',
     }
