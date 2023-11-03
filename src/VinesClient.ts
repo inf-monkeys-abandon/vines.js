@@ -507,6 +507,25 @@ requestBody: UpdateTaskStatusDto,
 }
 
 /**
+ * @summary 通过 Webhook 触发工作流
+ * @description 通过 Webhook 触发工作流
+ * @returns any
+ */
+public async triggerWorkflowByWebhook({
+    webhookPath,
+}: {
+    webhookPath: string,
+}): Promise<any> {
+    return await this.httpClient.request({
+        method: 'GET',
+        url: '/api/workflow/webhook/{webhookPath}',
+        pathParams: {
+            webhookPath,
+        },
+    });
+}
+
+/**
  * @summary 获取所有的 credential 定义
  * @description 获取所有的 credential 定义
  * @returns any
@@ -655,20 +674,11 @@ public async deleteCredential(credentialId: string,
  * @description 获取所有的 workflow blocks
  * @returns ListBlocksResp
  */
-public async listBlocks({
-    onlyCustom = 'false',
-}: {
-    /** 是否只获取自定义的 Block **/
-    onlyCustom?: 'true' | 'false',
-}): Promise<ListBlocksResp> {
+public async listBlocks(): Promise<ListBlocksResp> {
     return await this.httpClient.request({
         method: 'GET',
         url: '/api/blocks',
-        params: {
-            onlyCustom: onlyCustom,
-        },
         pathParams: {
-
         },
     });
 }
@@ -757,6 +767,18 @@ public async parseFromOpenApi(requestBody: ParseBlockFromOpenApiDto,
 
         },
         data: requestBody,
+    });
+}
+
+/**
+ * @returns any
+ */
+public async updateHealthRate(): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/blocks/updateHealthRate',
+        pathParams: {
+        },
     });
 }
 

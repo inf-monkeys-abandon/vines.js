@@ -27,6 +27,10 @@ export type CreateWorkflowViewDto = {
      * 模板视图 ID，如果视图是另一个视图的副本则必填
      */
     cover?: string;
+    /**
+     * 视图使用的 ApiKey，若为内置视图则必填
+     */
+    apiKey?: string;
 };
 
 export namespace CreateWorkflowViewDto {

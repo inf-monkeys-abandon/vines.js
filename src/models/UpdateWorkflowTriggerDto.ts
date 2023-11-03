@@ -8,13 +8,17 @@ export type UpdateWorkflowTriggerDto = {
      */
     type: UpdateWorkflowTriggerDto.type;
     /**
+     * 是否启用
+     */
+    enabled: boolean;
+    /**
      * corn 表达式，SCHEDULER 类型触发器必填
      */
     cron?: string;
     /**
-     * 是否启用
+     * Webhook 触发器配置
      */
-    enabled: boolean;
+    webhookConfig?: any;
 };
 
 export namespace UpdateWorkflowTriggerDto {
@@ -25,6 +29,7 @@ export namespace UpdateWorkflowTriggerDto {
     export enum type {
         MANUAL = 'MANUAL',
         SCHEDULER = 'SCHEDULER',
+        WEBHOOK = 'WEBHOOK',
     }
 
 
