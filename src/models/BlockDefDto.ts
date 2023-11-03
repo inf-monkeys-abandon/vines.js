@@ -33,8 +33,8 @@ export const CODE_EXECUTION_MODES = ["runOnceForAllItems", "runOnceForEachItem"]
 
 export type CodeAutocompleteTypes = "function" | "functionItem";
 export type EditorType = "code" | "codeNodeEditor" | "htmlEditor" | "sqlEditor" | "json";
-export type CodeNodeEditorLanguage = typeof CODE_LANGUAGES[number];
-export type CodeExecutionMode = typeof CODE_EXECUTION_MODES[number];
+export type CodeNodeEditorLanguage = (typeof CODE_LANGUAGES)[number];
+export type CodeExecutionMode = (typeof CODE_EXECUTION_MODES)[number];
 export type SQLDialect =
   | "StandardSQL"
   | "PostgreSQL"
@@ -201,8 +201,8 @@ export interface BlockDefinition {
   extra?: BlockExtraInfo;
   credentials?: BlockCredentialItem[];
   lastHealthCheckTime?: number;
-  blockStatus?: string,
-  totalCheckCount?: number,
-  availableCount?: number,
-  availability?: number,
+  blockStatus?: string;
+  totalCheckCount?: number;
+  availableCount?: number;
+  availability?: number;
 }
