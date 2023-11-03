@@ -2,17 +2,23 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { CreateWorkflowDefDto } from './models/CreateWorkflowDefDto';
+import type { CreateWorkflowTriggerDto } from './models/CreateWorkflowTriggerDto';
+import type { ImportWorkflowDto } from './models/ImportWorkflowDto';
 import type { SearchWorkflowExecutionsDto } from './models/SearchWorkflowExecutionsDto';
 import type { StartWorkflowDto } from './models/StartWorkflowDto';
 import type { UpdateTaskStatusDto } from './models/UpdateTaskStatusDto';
 import type { UpdateWorkflowDefDto } from './models/UpdateWorkflowDefDto';
+import type { UpdateWorkflowTriggerDto } from './models/UpdateWorkflowTriggerDto';
 import type { CreateCredentialDto } from './models/CreateCredentialDto';
 import type { CreateCredentialTypeDto } from './models/CreateCredentialTypeDto';
 import type { UpdateCredentialDto } from './models/UpdateCredentialDto';
 import type { CreateBlockDto } from './models/CreateBlockDto';
 import type { CreateBlockResp } from './models/CreateBlockResp';
+import type { ExecBlocksHealthCheckDto } from './models/ExecBlocksHealthCheckDto';
+import type { ExecuteBlockDto } from './models/ExecuteBlockDto';
 import type { GetBlockResp } from './models/GetBlockResp';
 import type { ListBlocksResp } from './models/ListBlocksResp';
+import type { ParseBlockFromOpenApiDto } from './models/ParseBlockFromOpenApiDto';
 import type { CommonBooleanResposeDto } from './models/CommonBooleanResposeDto';
 import type { CreateWorkflowTemplateDto } from './models/CreateWorkflowTemplateDto';
 import type { ForkTemplateResp } from './models/ForkTemplateResp';
@@ -58,6 +64,20 @@ export class VinesClient {
         return await this.httpClient.request({
             method: 'GET',
             url: '/api/workflow/recently',
+            pathParams: {
+            },
+        });
+    }
+
+    /**
+     * @summary 获取触发器类型
+     * @description 获取触发器类型
+     * @returns any
+     */
+    public async getTriggerTypes(): Promise<any> {
+        return await this.httpClient.request({
+            method: 'GET',
+            url: '/api/workflow/trigger-types',
             pathParams: {
             },
         });
@@ -183,8 +203,8 @@ public async deleteWorkflowDef(workflowId: string,
 }
 
 /**
- * @summary 获取 workflow 定义
- * @description 获取 workflow 定义
+ * @summary 导出 workflow
+ * @description 导出 workflow
  * @returns any
  */
 public async exportWorkflow({
@@ -198,6 +218,23 @@ public async exportWorkflow({
         pathParams: {
             workflowId,
         },
+    });
+}
+
+/**
+ * @summary 导入 workflow
+ * @description 导入 workflow
+ * @returns any
+ */
+public async importWorkflow(requestBody: ImportWorkflowDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/workflow/import',
+        pathParams: {
+
+        },
+        data: requestBody,
     });
 }
 
@@ -269,6 +306,99 @@ public async getWorkflowInstanceExecutionDetail({
         url: '/api/workflow/{workflowInstanceId}/execution-detail',
         pathParams: {
             workflowInstanceId,
+        },
+    });
+}
+
+/**
+ * @summary Clone workflow
+ * @description Clone worfklow
+ * @returns any
+ */
+public async cloneWorkflow(workflowId: string,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/workflow/{workflowId}/clone',
+        pathParams: {
+            workflowId,
+        },
+    });
+}
+
+/**
+ * @summary 创建触发器
+ * @description 创建触发器
+ * @returns any
+ */
+public async createTrigger(workflowId: string,
+requestBody: CreateWorkflowTriggerDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/workflow/{workflowId}/triggers',
+        pathParams: {
+            workflowId,
+
+        },
+        data: requestBody,
+    });
+}
+
+/**
+ * @summary 获取触发器列表
+ * @description 获取触发器列表
+ * @returns any
+ */
+public async listTriggers({
+    workflowId,
+}: {
+    workflowId: string,
+}): Promise<any> {
+    return await this.httpClient.request({
+        method: 'GET',
+        url: '/api/workflow/{workflowId}/triggers',
+        pathParams: {
+            workflowId,
+        },
+    });
+}
+
+/**
+ * @summary 修改触发器
+ * @description 修改触发器
+ * @returns any
+ */
+public async updateTrigger(workflowId: string,
+triggerId: string,
+requestBody: UpdateWorkflowTriggerDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'PUT',
+        url: '/api/workflow/{workflowId}/triggers/{triggerId}',
+        pathParams: {
+            workflowId,
+            triggerId,
+
+        },
+        data: requestBody,
+    });
+}
+
+/**
+ * @summary 删除触发器
+ * @description 删除触发器
+ * @returns any
+ */
+public async deleteTrigger(workflowId: string,
+triggerId: string,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'DELETE',
+        url: '/api/workflow/{workflowId}/triggers/{triggerId}',
+        pathParams: {
+            workflowId,
+            triggerId,
         },
     });
 }
@@ -576,6 +706,57 @@ public async getBlock({
         pathParams: {
             blockName,
         },
+    });
+}
+
+/**
+ * @summary 获取 Block 最后一次健康状态
+ * @description 获取 Block 最后一次健康状态
+ * @returns CreateBlockResp
+ */
+public async blockHealthCheck(requestBody: ExecBlocksHealthCheckDto,
+): Promise<CreateBlockResp> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/blocks/healthCheck',
+        pathParams: {
+
+        },
+        data: requestBody,
+    });
+}
+
+/**
+ * @summary 执行 Block
+ * @description 单独执行一个 block
+ * @returns any
+ */
+public async executeBlock(requestBody: ExecuteBlockDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/blocks/execute',
+        pathParams: {
+
+        },
+        data: requestBody,
+    });
+}
+
+/**
+ * @summary 解析 OPNE API 接口
+ * @description 解析 OPNE API 接口为一个 block
+ * @returns any
+ */
+public async parseFromOpenApi(requestBody: ParseBlockFromOpenApiDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/blocks/parse-from-openapi',
+        pathParams: {
+
+        },
+        data: requestBody,
     });
 }
 

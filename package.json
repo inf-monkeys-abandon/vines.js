@@ -1,6 +1,6 @@
 {
   "name": "@inf-monkeys/vines",
-  "version": "0.0.19",
+  "version": "0.0.23",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
@@ -13,6 +13,7 @@
     "build:types": "node scripts/build-all-types.js"
   },
   "dependencies": {
+    "@types/axios": "^0.14.0",
     "axios": "^1.4.0"
   },
   "devDependencies": {
