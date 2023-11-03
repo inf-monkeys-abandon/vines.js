@@ -20,6 +20,7 @@ export * from './PaginationDto';
 export * from './SearchWorkflowExecutionsDto';
 export * from './SearchWorkflowExecutionsOrderDto';
 export * from './StartWorkflowDto';
+export * from './UpdateCredentialDto';
 export * from './UpdateTaskStatusDto';
 export * from './UpdateWorkflowDefDto';
 export * from './UpdateWorkflowTemplateDto';

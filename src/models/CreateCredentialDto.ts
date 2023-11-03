@@ -8,11 +8,11 @@ export type CreateCredentialDto = {
      */
     data: any;
     /**
-     * 密钥名称
-     */
-    displayName?: string;
-    /**
      * 密钥类型
      */
-    type?: string;
+    type: string;
+    /**
+     * 密钥名称
+     */
+    displayName: string;
 };

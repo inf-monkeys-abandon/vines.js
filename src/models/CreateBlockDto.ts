@@ -40,7 +40,7 @@ export type CreateBlockDto = {
     /**
      * Block 表单配置
      */
-    properties?: Array<any>;
+    input?: Array<any>;
     /**
      * Block 输入数据结构
      */

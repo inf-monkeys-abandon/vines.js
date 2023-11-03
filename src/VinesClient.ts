@@ -8,6 +8,7 @@ import type { UpdateTaskStatusDto } from './models/UpdateTaskStatusDto';
 import type { UpdateWorkflowDefDto } from './models/UpdateWorkflowDefDto';
 import type { CreateCredentialDto } from './models/CreateCredentialDto';
 import type { CreateCredentialTypeDto } from './models/CreateCredentialTypeDto';
+import type { UpdateCredentialDto } from './models/UpdateCredentialDto';
 import type { CreateBlockDto } from './models/CreateBlockDto';
 import type { CreateBlockResp } from './models/CreateBlockResp';
 import type { GetBlockResp } from './models/GetBlockResp';
@@ -87,11 +88,23 @@ export class VinesClient {
 public async listWorkflow({
     page = 1,
     limit = 10,
+    freeText,
+    teamId,
+    order = 'DESC',
+    orderBy = 'updatedTimestamp',
 }: {
     /** 当前页数，从 1 开始 **/
     page?: number,
     /** 每页数目，默认为 10 **/
     limit?: number,
+    /** 搜索关键词 **/
+    freeText?: string,
+    /** 查询的团队 ID **/
+    teamId?: string,
+    /** 排序规则 **/
+    order?: 'DESC' | 'ASC',
+    /** 排序字段 **/
+    orderBy?: 'createdTimestamp' | 'updatedTimestamp',
 }): Promise<any> {
     return await this.httpClient.request({
         method: 'GET',
@@ -99,8 +112,16 @@ public async listWorkflow({
         params: {
             page: page,
             limit: limit,
+            freeText: freeText,
+            teamId: teamId,
+            order: order,
+            orderBy: orderBy,
         },
         pathParams: {
+
+
+
+
 
 
         },
@@ -155,6 +176,25 @@ public async deleteWorkflowDef(workflowId: string,
     return await this.httpClient.request({
         method: 'DELETE',
         url: '/api/workflow/{workflowId}',
+        pathParams: {
+            workflowId,
+        },
+    });
+}
+
+/**
+ * @summary 获取 workflow 定义
+ * @description 获取 workflow 定义
+ * @returns any
+ */
+public async exportWorkflow({
+    workflowId,
+}: {
+    workflowId: string,
+}): Promise<any> {
+    return await this.httpClient.request({
+        method: 'GET',
+        url: '/api/workflow/{workflowId}/export',
         pathParams: {
             workflowId,
         },
@@ -427,8 +467,8 @@ public async createCredential(requestBody: CreateCredentialDto,
 }
 
 /**
- * @summary 获取所有的 credential 内容
- * @description 获取所有的 credential 内容
+ * @summary 获取密钥详情
+ * @description 获取密钥详情
  * @returns any
  */
 public async getCredential({
@@ -446,15 +486,50 @@ public async getCredential({
 }
 
 /**
+ * @summary 修改密钥
+ * @description 修改密钥
+ * @returns any
+ */
+public async updateCredential(credentialId: string,
+requestBody: UpdateCredentialDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'PUT',
+        url: '/api/credentials/{credentialId}',
+        pathParams: {
+            credentialId,
+
+        },
+        data: requestBody,
+    });
+}
+
+/**
+ * @summary 删除密钥
+ * @description 删除密钥
+ * @returns any
+ */
+public async deleteCredential(credentialId: string,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'DELETE',
+        url: '/api/credentials/{credentialId}',
+        pathParams: {
+            credentialId,
+        },
+    });
+}
+
+/**
  * @summary 获取所有的 workflow blocks
  * @description 获取所有的 workflow blocks
  * @returns ListBlocksResp
  */
 public async listBlocks({
-    onlyCustom = false,
+    onlyCustom = 'false',
 }: {
     /** 是否只获取自定义的 Block **/
-    onlyCustom?: boolean,
+    onlyCustom?: 'true' | 'false',
 }): Promise<ListBlocksResp> {
     return await this.httpClient.request({
         method: 'GET',
@@ -679,6 +754,152 @@ public async removeTemplateById(id: string,
 }
 
 /**
+ * @summary 查询某个工作流视图关联关系
+ * @description 查询某个工作流视图关联关系
+ * @returns any
+ */
+public async getWorkflowViewRelationsById({
+    relationsId,
+}: {
+    relationsId: string,
+}): Promise<any> {
+    return await this.httpClient.request({
+        method: 'GET',
+        url: '/api/views/relations/{relationsId}',
+        pathParams: {
+            relationsId,
+        },
+    });
+}
+
+/**
+ * @summary 更新工作流和视图的关联关系
+ * @description 更新工作流和视图的关联关系
+ * @returns any
+ */
+public async updateWorkflowViewRelations(relationsId: string,
+requestBody: UpsertWorkflowViewRelationDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'PUT',
+        url: '/api/views/relations/{relationsId}',
+        pathParams: {
+            relationsId,
+
+        },
+        data: requestBody,
+    });
+}
+
+/**
+ * @summary 删除工作流和视图的关联关系
+ * @description 删除工作流和视图的关联关系
+ * @returns any
+ */
+public async removeWorkflowViewRelations(relationsId: string,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'DELETE',
+        url: '/api/views/relations/{relationsId}',
+        pathParams: {
+            relationsId,
+        },
+    });
+}
+
+/**
+ * @summary 查询工作流关联的视图
+ * @description 查询工作流关联的视图
+ * @returns any
+ */
+public async getViewsByWorkflowId({
+    workflowId,
+}: {
+    workflowId: string,
+}): Promise<any> {
+    return await this.httpClient.request({
+        method: 'GET',
+        url: '/api/views/workflow/{workflowId}/relations',
+        pathParams: {
+            workflowId,
+        },
+    });
+}
+
+/**
+ * @summary 通过关联关系 ID 获取视图信息
+ * @description 通过关联关系 ID 获取视图信息
+ * @returns any
+ */
+public async getViewByRelationsId({
+    relationsId,
+}: {
+    relationsId: string,
+}): Promise<any> {
+    return await this.httpClient.request({
+        method: 'GET',
+        url: '/api/views/relations/{relationsId}/view',
+        pathParams: {
+            relationsId,
+        },
+    });
+}
+
+/**
+ * @summary 获取视图详情
+ * @description 获取视图详情
+ * @returns any
+ */
+public async getView({
+    id,
+}: {
+    id: string,
+}): Promise<any> {
+    return await this.httpClient.request({
+        method: 'GET',
+        url: '/api/views/{id}',
+        pathParams: {
+            id,
+        },
+    });
+}
+
+/**
+ * @summary 修改视图
+ * @description 修改视图
+ * @returns any
+ */
+public async updateView(id: string,
+requestBody: UpdateWorkflowViewDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'PUT',
+        url: '/api/views/{id}',
+        pathParams: {
+            id,
+
+        },
+        data: requestBody,
+    });
+}
+
+/**
+ * @summary 删除视图
+ * @description 删除视图
+ * @returns any
+ */
+public async removeView(id: string,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'DELETE',
+        url: '/api/views/{id}',
+        pathParams: {
+            id,
+        },
+    });
+}
+
+/**
  * @summary 获取公开的视图列表
  * @description 获取公开的视图列表
  * @returns any
@@ -752,55 +973,17 @@ public async listTeamViews({
 }
 
 /**
- * @summary 修改视图
- * @description 修改视图
  * @returns any
  */
-public async updateView(id: string,
-requestBody: UpdateWorkflowViewDto,
+public async forkView(id: string,
+templateViewId: string,
 ): Promise<any> {
     return await this.httpClient.request({
         method: 'PUT',
-        url: '/api/views/{id}',
+        url: '/api/views/{id}/fork/{templateViewId}',
         pathParams: {
             id,
-
-        },
-        data: requestBody,
-    });
-}
-
-/**
- * @summary 删除视图
- * @description 删除视图
- * @returns any
- */
-public async removeView(id: string,
-): Promise<any> {
-    return await this.httpClient.request({
-        method: 'DELETE',
-        url: '/api/views/{id}',
-        pathParams: {
-            id,
-        },
-    });
-}
-
-/**
- * @summary 获取视图详情
- * @description 获取视图详情
- * @returns any
- */
-public async getView({
-    id,
-}: {
-    id: string,
-}): Promise<any> {
-    return await this.httpClient.request({
-        method: 'GET',
-        url: '/api/views/{id}',
-        pathParams: {
-            id,
+            templateViewId,
         },
     });
 }
@@ -819,60 +1002,6 @@ public async createWorkflowViewRelations(requestBody: UpsertWorkflowViewRelation
 
         },
         data: requestBody,
-    });
-}
-
-/**
- * @summary 更新工作流和视图的关联关系
- * @description 更新工作流和视图的关联关系
- * @returns any
- */
-public async updateWorkflowViewRelations(relationsId: string,
-requestBody: UpsertWorkflowViewRelationDto,
-): Promise<any> {
-    return await this.httpClient.request({
-        method: 'PUT',
-        url: '/api/views/relations/{relationsId}',
-        pathParams: {
-            relationsId,
-
-        },
-        data: requestBody,
-    });
-}
-
-/**
- * @summary 删除工作流和视图的关联关系
- * @description 删除工作流和视图的关联关系
- * @returns any
- */
-public async removeWorkflowViewRelations(relationsId: string,
-): Promise<any> {
-    return await this.httpClient.request({
-        method: 'DELETE',
-        url: '/api/views/relations/{relationsId}',
-        pathParams: {
-            relationsId,
-        },
-    });
-}
-
-/**
- * @summary 查询工作流关联的视图
- * @description 查询工作流关联的视图
- * @returns any
- */
-public async getViewsByWorkflowId({
-    workflowId,
-}: {
-    workflowId: string,
-}): Promise<any> {
-    return await this.httpClient.request({
-        method: 'GET',
-        url: '/api/views/workflow/{workflowId}/relations',
-        pathParams: {
-            workflowId,
-        },
     });
 }
 
