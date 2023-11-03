@@ -172,6 +172,8 @@ export enum BlockType {
   TERMINATE = "TERMINATE",
   HUMAN = "HUMAN",
   SUB_WORKFLOW = "SUB_WORKFLOW",
+  INLINE = "INLINE",
+  SET_VARIABLE = "SET_VARIABLE",
 }
 
 export interface BlockRuleItem {
