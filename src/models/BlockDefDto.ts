@@ -220,7 +220,7 @@ export interface BlockDefinition {
   // 此 Block 包含的数据资产
   assets?: [
     {
-      type: AssetType;
+      name: AssetType;
       fieldIds: string[];
     }
   ];
