@@ -33,6 +33,26 @@ export type BlockDto = {
      * Block 输出数据
      */
     output?: any;
+    /**
+     * Block 进行最后一次健康检查的时间
+     */
+    lastHealthCheckTime?: number;
+    /**
+     * Block 状态
+     */
+    blockStatus?: string;
+    /**
+     * Block 总健康检查次数
+     */
+    totalCheckCount?: number;
+    /**
+     * Block 检测可用次数
+     */
+    availableCount?: number;
+    /**
+     * Block 可用性
+     */
+    availability?: number;
 };
 
 export namespace BlockDto {

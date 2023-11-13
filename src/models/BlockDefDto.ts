@@ -33,8 +33,8 @@ export const CODE_EXECUTION_MODES = ["runOnceForAllItems", "runOnceForEachItem"]
 
 export type CodeAutocompleteTypes = "function" | "functionItem";
 export type EditorType = "code" | "codeNodeEditor" | "htmlEditor" | "sqlEditor" | "json";
-export type CodeNodeEditorLanguage = (typeof CODE_LANGUAGES)[number];
-export type CodeExecutionMode = (typeof CODE_EXECUTION_MODES)[number];
+export type CodeNodeEditorLanguage = typeof CODE_LANGUAGES[number];
+export type CodeExecutionMode = typeof CODE_EXECUTION_MODES[number];
 export type SQLDialect =
   | "StandardSQL"
   | "PostgreSQL"
@@ -150,6 +150,7 @@ export interface BlockDefProperties {
   required?: boolean;
   example?: string;
   extractValue?: BlockDefPropertyValueExtractorRegex;
+  properties?: BlockDefProperties[];
 }
 
 export interface BlockDefOutput {
@@ -157,6 +158,7 @@ export interface BlockDefOutput {
   displayName: string;
   type: BlockDefPropertyTypes;
   description?: string;
+  properties?: BlockDefOutput[];
 }
 
 export type BlockDefCategory = "image" | "llm" | "text" | "progress" | "im" | "bio" | "common" | "modelEnhance";
@@ -207,4 +209,9 @@ export interface BlockDefinition {
   totalCheckCount?: number;
   availableCount?: number;
   availability?: number;
+
+  /**
+   * 预估执行时间
+   */
+  estimateTime?: number;
 }
