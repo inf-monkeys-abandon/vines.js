@@ -197,6 +197,21 @@ export class VinesClient {
   }
 
   /**
+   * @summary 检查模板中包含的数据资产
+   * @description 检查模板中包含的数据资产
+   * @returns any
+   */
+  public async checkBlockAssets({ workflowId }: { workflowId: string }): Promise<any> {
+    return await this.httpClient.request({
+      method: "GET",
+      url: "/api/workflow/{workflowId}/block-assets",
+      pathParams: {
+        workflowId,
+      },
+    });
+  }
+
+  /**
    * @summary 导入 workflow
    * @description 导入 workflow
    * @returns any

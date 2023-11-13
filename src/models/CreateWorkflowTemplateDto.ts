@@ -23,4 +23,8 @@ export type CreateWorkflowTemplateDto = {
      * 描述
      */
     desc?: string;
+    /**
+     * 资产分享策略
+     */
+    assetsPolicy?: any;
 };

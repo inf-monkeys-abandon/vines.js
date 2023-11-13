@@ -134,6 +134,8 @@ export interface BlockDefPropertyValueExtractorRegex {
   regex: string | RegExp;
 }
 
+export type AssetType = "vectorDatabase";
+
 export interface BlockDefProperties {
   displayName: string;
   name: string;
@@ -214,4 +216,12 @@ export interface BlockDefinition {
    * 预估执行时间
    */
   estimateTime?: number;
+
+  // 此 Block 包含的数据资产
+  assets?: [
+    {
+      type: AssetType;
+      fieldIds: string[];
+    }
+  ];
 }

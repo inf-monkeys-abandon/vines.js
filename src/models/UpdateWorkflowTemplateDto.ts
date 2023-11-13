@@ -19,4 +19,8 @@ export type UpdateWorkflowTemplateDto = {
      * 图标
      */
     logo?: string;
+    /**
+     * 资产分享策略
+     */
+    assetsPolicy?: any;
 };

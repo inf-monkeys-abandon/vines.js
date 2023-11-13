@@ -53,6 +53,10 @@ export type BlockDto = {
      * Block 可用性
      */
     availability?: number;
+    /**
+     * Block 预估运行时间，单位为秒
+     */
+    estimateTime?: number;
 };
 
 export namespace BlockDto {
