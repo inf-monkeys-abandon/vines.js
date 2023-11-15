@@ -4,6 +4,7 @@
 import type { CreateWorkflowDefDto } from "./models/CreateWorkflowDefDto";
 import type { CreateWorkflowTriggerDto } from "./models/CreateWorkflowTriggerDto";
 import type { ImportWorkflowDto } from "./models/ImportWorkflowDto";
+import type { RetryFromFailedTaskDto } from "./models/RetryFromFailedTaskDto";
 import type { SearchWorkflowExecutionsDto } from "./models/SearchWorkflowExecutionsDto";
 import type { StartWorkflowDto } from "./models/StartWorkflowDto";
 import type { UpdateTaskStatusDto } from "./models/UpdateTaskStatusDto";
@@ -303,6 +304,22 @@ export class VinesClient {
       pathParams: {
         workflowId,
       },
+    });
+  }
+
+  /**
+   * @summary 从某个失败的 task 开始重试
+   * @description 从某个失败的 task 开始重试
+   * @returns any
+   */
+  public async retryFromFailedTask(workflowInstanceId: string, requestBody: RetryFromFailedTaskDto): Promise<any> {
+    return await this.httpClient.request({
+      method: "POST",
+      url: "/api/workflow/{workflowInstanceId}/retry-form-failed-task",
+      pathParams: {
+        workflowInstanceId,
+      },
+      data: requestBody,
     });
   }
 

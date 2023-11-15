@@ -22,6 +22,7 @@ export * from './ListWorkflowTemplatesCategoriesResp';
 export * from './ListWorkflowTemplatesResp';
 export * from './PaginationDto';
 export * from './ParseBlockFromOpenApiDto';
+export * from './RetryFromFailedTaskDto';
 export * from './SearchWorkflowExecutionsDto';
 export * from './SearchWorkflowExecutionsOrderDto';
 export * from './StartWorkflowDto';

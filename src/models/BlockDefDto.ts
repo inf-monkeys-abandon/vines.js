@@ -134,7 +134,7 @@ export interface BlockDefPropertyValueExtractorRegex {
   regex: string | RegExp;
 }
 
-export type AssetType = "vectorDatabase";
+export type AssetType = "vectorDatabase" | "sdModel";
 
 export interface BlockDefProperties {
   displayName: string;
