@@ -206,22 +206,4 @@ export interface BlockDefinition {
   rules?: BlockRuleItem[];
   extra?: BlockExtraInfo;
   credentials?: BlockCredentialItem[];
-  lastHealthCheckTime?: number;
-  blockStatus?: string;
-  totalCheckCount?: number;
-  availableCount?: number;
-  availability?: number;
-
-  /**
-   * 预估执行时间
-   */
-  estimateTime?: number;
-
-  // 此 Block 包含的数据资产
-  assets?: [
-    {
-      name: AssetType;
-      fieldIds: string[];
-    }
-  ];
 }
