@@ -15,9 +15,9 @@ import type { CreateCredentialTypeDto } from './models/CreateCredentialTypeDto';
 import type { UpdateCredentialDto } from './models/UpdateCredentialDto';
 import type { CreateBlockDto } from './models/CreateBlockDto';
 import type { CreateBlockResp } from './models/CreateBlockResp';
+import type { ExecBlocksHealthCheckDto } from './models/ExecBlocksHealthCheckDto';
 import type { ExecuteBlockDto } from './models/ExecuteBlockDto';
 import type { GetBlockResp } from './models/GetBlockResp';
-import type { ListBlocksDto } from './models/ListBlocksDto';
 import type { ListBlocksResp } from './models/ListBlocksResp';
 import type { ParseBlockFromOpenApiDto } from './models/ParseBlockFromOpenApiDto';
 import type { CommonBooleanResposeDto } from './models/CommonBooleanResposeDto';
@@ -713,18 +713,12 @@ public async deleteCredential(credentialId: string,
  * @description 获取所有的 workflow blocks
  * @returns ListBlocksResp
  */
-public async listBlocks({
-    requestBody,
-}: {
-    requestBody: ListBlocksDto,
-}): Promise<ListBlocksResp> {
+public async listBlocks(): Promise<ListBlocksResp> {
     return await this.httpClient.request({
         method: 'GET',
         url: '/api/blocks',
         pathParams: {
-
         },
-        data: requestBody,
     });
 }
 
@@ -746,6 +740,27 @@ public async createBlock(requestBody: CreateBlockDto,
 }
 
 /**
+ * @returns any
+ */
+public async listBlocksV2({
+    keywords,
+}: {
+    /** 关键词 **/
+    keywords?: string,
+}): Promise<any> {
+    return await this.httpClient.request({
+        method: 'GET',
+        url: '/api/blocks/v2',
+        params: {
+            keywords: keywords,
+        },
+        pathParams: {
+
+        },
+    });
+}
+
+/**
  * @summary 获取 Block 详情
  * @description 获取 Block 详情
  * @returns GetBlockResp
@@ -761,6 +776,23 @@ public async getBlock({
         pathParams: {
             blockName,
         },
+    });
+}
+
+/**
+ * @summary 获取 Block 最后一次健康状态
+ * @description 获取 Block 最后一次健康状态
+ * @returns CreateBlockResp
+ */
+public async blockHealthCheck(requestBody: ExecBlocksHealthCheckDto,
+): Promise<CreateBlockResp> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/blocks/healthCheck',
+        pathParams: {
+
+        },
+        data: requestBody,
     });
 }
 
@@ -795,6 +827,18 @@ public async parseFromOpenApi(requestBody: ParseBlockFromOpenApiDto,
 
         },
         data: requestBody,
+    });
+}
+
+/**
+ * @returns any
+ */
+public async updateHealthRate(): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/blocks/updateHealthRate',
+        pathParams: {
+        },
     });
 }
 

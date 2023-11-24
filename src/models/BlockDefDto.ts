@@ -153,6 +153,7 @@ export interface BlockDefProperties {
   example?: string;
   extractValue?: BlockDefPropertyValueExtractorRegex;
   properties?: BlockDefProperties[];
+  assetType?: AssetType
 }
 
 export interface BlockDefOutput {
