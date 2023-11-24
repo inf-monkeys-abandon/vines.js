@@ -19,7 +19,7 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           # Defaults to the user or organization that owns the workflow file
           scope: '@inf-monkeys'
-      - run: npm i -g pnpm@7
+      - run: npm i -g pnpm@8
       - run: pnpm i
       - run: npm run build
       - run: npm run build:types
