@@ -1279,6 +1279,8 @@ public async createWorkflowViewRelations(requestBody: UpsertWorkflowViewRelation
 }
 
 /**
+ * @summary 获取应用类型列表
+ * @description 获取应用类型列表
  * @returns any
  */
 public async listApplications(): Promise<any> {
