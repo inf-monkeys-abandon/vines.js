@@ -1,6 +1,7 @@
 export * from './BlockDefDto';
 export * from './BlockDto';
 export * from './CommonBooleanResposeDto';
+export * from './CreateApplicationProjectDto';
 export * from './CreateBlockCredentialDto';
 export * from './CreateBlockDto';
 export * from './CreateBlockResp';

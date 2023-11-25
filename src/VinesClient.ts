@@ -30,6 +30,7 @@ import type { WorkflowTemplatesResp } from './models/WorkflowTemplatesResp';
 import type { CreateWorkflowViewDto } from './models/CreateWorkflowViewDto';
 import type { UpdateWorkflowViewDto } from './models/UpdateWorkflowViewDto';
 import type { UpsertWorkflowViewRelationDto } from './models/UpsertWorkflowViewRelationDto';
+import type { CreateApplicationProjectDto } from './models/CreateApplicationProjectDto';
 
 import { HttpClient, RequestConfig } from "./http/HttpClient";
 import { DEFAULT_OPTIONS, VinesClientOptions } from "./VinesClientOptions";
@@ -1271,6 +1272,105 @@ public async createWorkflowViewRelations(requestBody: UpsertWorkflowViewRelation
         method: 'POST',
         url: '/api/views/relations',
         pathParams: {
+
+        },
+        data: requestBody,
+    });
+}
+
+/**
+ * @returns any
+ */
+public async listApplications(): Promise<any> {
+    return await this.httpClient.request({
+        method: 'GET',
+        url: '/api/application',
+        pathParams: {
+        },
+    });
+}
+
+/**
+ * @summary 获取应用鉴权 apiKey
+ * @description 返回一个应用专用的合法 apiKey，如果没有则创建
+ * @returns any
+ */
+public async getApiKeyByAppName(appName: string,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/application/{appName}/api-key',
+        pathParams: {
+            appName,
+        },
+    });
+}
+
+/**
+ * @summary 获取 application project 列表
+ * @description 获取 application project 列表
+ * @returns any
+ */
+public async listProjectsByAppName({
+    appName,
+    page = 1,
+    limit = 10,
+}: {
+    appName: string,
+    /** 当前页数，从 1 开始 **/
+    page?: number,
+    /** 每页数目，默认为 10 **/
+    limit?: number,
+}): Promise<any> {
+    return await this.httpClient.request({
+        method: 'GET',
+        url: '/api/application/{appName}/projects',
+        params: {
+            page: page,
+            limit: limit,
+        },
+        pathParams: {
+            appName,
+
+
+        },
+    });
+}
+
+/**
+ * @summary 创建 application project
+ * @description 创建 application project
+ * @returns any
+ */
+public async createProjectByAppName(appName: string,
+requestBody: CreateApplicationProjectDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/application/{appName}/projects',
+        pathParams: {
+            appName,
+
+        },
+        data: requestBody,
+    });
+}
+
+/**
+ * @summary 修改 application project
+ * @description 修改 application project
+ * @returns any
+ */
+public async updateProjectByAppName(appName: string,
+projectId: string,
+requestBody: CreateApplicationProjectDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'PUT',
+        url: '/api/application/{appName}/projects/{projectId}',
+        pathParams: {
+            appName,
+            projectId,
 
         },
         data: requestBody,
