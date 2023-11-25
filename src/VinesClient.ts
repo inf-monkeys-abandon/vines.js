@@ -4,6 +4,7 @@
 import type { CreateWorkflowDefDto } from './models/CreateWorkflowDefDto';
 import type { CreateWorkflowTriggerDto } from './models/CreateWorkflowTriggerDto';
 import type { ImportWorkflowDto } from './models/ImportWorkflowDto';
+import type { RetryFromFailedTaskDto } from './models/RetryFromFailedTaskDto';
 import type { SearchWorkflowExecutionsDto } from './models/SearchWorkflowExecutionsDto';
 import type { StartWorkflowDto } from './models/StartWorkflowDto';
 import type { UpdateTaskStatusDto } from './models/UpdateTaskStatusDto';
@@ -14,7 +15,6 @@ import type { CreateCredentialTypeDto } from './models/CreateCredentialTypeDto';
 import type { UpdateCredentialDto } from './models/UpdateCredentialDto';
 import type { CreateBlockDto } from './models/CreateBlockDto';
 import type { CreateBlockResp } from './models/CreateBlockResp';
-import type { ExecBlocksHealthCheckDto } from './models/ExecBlocksHealthCheckDto';
 import type { ExecuteBlockDto } from './models/ExecuteBlockDto';
 import type { GetBlockResp } from './models/GetBlockResp';
 import type { ListBlocksResp } from './models/ListBlocksResp';
@@ -222,6 +222,25 @@ public async exportWorkflow({
 }
 
 /**
+ * @summary 检查模板中包含的数据资产
+ * @description 检查模板中包含的数据资产
+ * @returns any
+ */
+public async checkBlockAssets({
+    workflowId,
+}: {
+    workflowId: string,
+}): Promise<any> {
+    return await this.httpClient.request({
+        method: 'GET',
+        url: '/api/workflow/{workflowId}/block-assets',
+        pathParams: {
+            workflowId,
+        },
+    });
+}
+
+/**
  * @summary 导入 workflow
  * @description 导入 workflow
  * @returns any
@@ -323,6 +342,25 @@ public async cloneWorkflow(workflowId: string,
         pathParams: {
             workflowId,
         },
+    });
+}
+
+/**
+ * @summary 从某个失败的 task 开始重试
+ * @description 从某个失败的 task 开始重试
+ * @returns any
+ */
+public async retryFromFailedTask(workflowInstanceId: string,
+requestBody: RetryFromFailedTaskDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/workflow/{workflowInstanceId}/retry-form-failed-task',
+        pathParams: {
+            workflowInstanceId,
+
+        },
+        data: requestBody,
     });
 }
 
@@ -674,11 +712,35 @@ public async deleteCredential(credentialId: string,
  * @description 获取所有的 workflow blocks
  * @returns ListBlocksResp
  */
-public async listBlocks(): Promise<ListBlocksResp> {
+public async listBlocks({
+    keywords,
+    page,
+    limit,
+    extra,
+}: {
+    /** 关键词 **/
+    keywords?: string,
+    /** 页码 **/
+    page?: number,
+    /** 每页数量 **/
+    limit?: number,
+    /** 需要附加其他字段 **/
+    extra?: string,
+}): Promise<ListBlocksResp> {
     return await this.httpClient.request({
         method: 'GET',
         url: '/api/blocks',
+        params: {
+            keywords: keywords,
+            page: page,
+            limit: limit,
+            extra: extra,
+        },
         pathParams: {
+
+
+
+
         },
     });
 }
@@ -701,6 +763,42 @@ public async createBlock(requestBody: CreateBlockDto,
 }
 
 /**
+ * @returns any
+ */
+public async listBlocksV2({
+    keywords,
+    page,
+    limit,
+    extra,
+}: {
+    /** 关键词 **/
+    keywords?: string,
+    /** 页码 **/
+    page?: number,
+    /** 每页数量 **/
+    limit?: number,
+    /** 需要附加其他字段 **/
+    extra?: string,
+}): Promise<any> {
+    return await this.httpClient.request({
+        method: 'GET',
+        url: '/api/blocks/v2',
+        params: {
+            keywords: keywords,
+            page: page,
+            limit: limit,
+            extra: extra,
+        },
+        pathParams: {
+
+
+
+
+        },
+    });
+}
+
+/**
  * @summary 获取 Block 详情
  * @description 获取 Block 详情
  * @returns GetBlockResp
@@ -716,23 +814,6 @@ public async getBlock({
         pathParams: {
             blockName,
         },
-    });
-}
-
-/**
- * @summary 获取 Block 最后一次健康状态
- * @description 获取 Block 最后一次健康状态
- * @returns CreateBlockResp
- */
-public async blockHealthCheck(requestBody: ExecBlocksHealthCheckDto,
-): Promise<CreateBlockResp> {
-    return await this.httpClient.request({
-        method: 'POST',
-        url: '/api/blocks/healthCheck',
-        pathParams: {
-
-        },
-        data: requestBody,
     });
 }
 
@@ -767,18 +848,6 @@ public async parseFromOpenApi(requestBody: ParseBlockFromOpenApiDto,
 
         },
         data: requestBody,
-    });
-}
-
-/**
- * @returns any
- */
-public async updateHealthRate(): Promise<any> {
-    return await this.httpClient.request({
-        method: 'POST',
-        url: '/api/blocks/updateHealthRate',
-        pathParams: {
-        },
     });
 }
 
