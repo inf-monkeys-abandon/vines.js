@@ -2,8 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { BlockDefProperties } from './BlockDefProperties';
-
 export type BlockDto = {
     /**
      * Block 类型
@@ -28,7 +26,7 @@ export type BlockDto = {
     /**
      * Block 表单配置
      */
-    properties: Array<BlockDefProperties>;
+    properties: Array<any>;
     /**
      * Block 输出数据
      */

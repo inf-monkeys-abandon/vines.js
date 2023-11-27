@@ -15,11 +15,11 @@ import type { CreateCredentialTypeDto } from './models/CreateCredentialTypeDto';
 import type { UpdateCredentialDto } from './models/UpdateCredentialDto';
 import type { CreateBlockDto } from './models/CreateBlockDto';
 import type { CreateBlockResp } from './models/CreateBlockResp';
-import type { ExecBlocksHealthCheckDto } from './models/ExecBlocksHealthCheckDto';
 import type { ExecuteBlockDto } from './models/ExecuteBlockDto';
 import type { GetBlockResp } from './models/GetBlockResp';
 import type { ListBlocksResp } from './models/ListBlocksResp';
 import type { ParseBlockFromOpenApiDto } from './models/ParseBlockFromOpenApiDto';
+import type { RegisterBlockDto } from './models/RegisterBlockDto';
 import type { CommonBooleanResposeDto } from './models/CommonBooleanResposeDto';
 import type { CreateWorkflowTemplateDto } from './models/CreateWorkflowTemplateDto';
 import type { ForkTemplateResp } from './models/ForkTemplateResp';
@@ -31,6 +31,7 @@ import type { WorkflowTemplatesResp } from './models/WorkflowTemplatesResp';
 import type { CreateWorkflowViewDto } from './models/CreateWorkflowViewDto';
 import type { UpdateWorkflowViewDto } from './models/UpdateWorkflowViewDto';
 import type { UpsertWorkflowViewRelationDto } from './models/UpsertWorkflowViewRelationDto';
+import type { CreateApplicationProjectDto } from './models/CreateApplicationProjectDto';
 
 import { HttpClient, RequestConfig } from "./http/HttpClient";
 import { DEFAULT_OPTIONS, VinesClientOptions } from "./VinesClientOptions";
@@ -713,11 +714,35 @@ public async deleteCredential(credentialId: string,
  * @description 获取所有的 workflow blocks
  * @returns ListBlocksResp
  */
-public async listBlocks(): Promise<ListBlocksResp> {
+public async listBlocks({
+    keywords,
+    page,
+    limit,
+    extra,
+}: {
+    /** 关键词 **/
+    keywords?: string,
+    /** 页码 **/
+    page?: number,
+    /** 每页数量 **/
+    limit?: number,
+    /** 需要附加其他字段 **/
+    extra?: string,
+}): Promise<ListBlocksResp> {
     return await this.httpClient.request({
         method: 'GET',
         url: '/api/blocks',
+        params: {
+            keywords: keywords,
+            page: page,
+            limit: limit,
+            extra: extra,
+        },
         pathParams: {
+
+
+
+
         },
     });
 }
@@ -744,17 +769,32 @@ public async createBlock(requestBody: CreateBlockDto,
  */
 public async listBlocksV2({
     keywords,
+    page,
+    limit,
+    extra,
 }: {
     /** 关键词 **/
     keywords?: string,
+    /** 页码 **/
+    page?: number,
+    /** 每页数量 **/
+    limit?: number,
+    /** 需要附加其他字段 **/
+    extra?: string,
 }): Promise<any> {
     return await this.httpClient.request({
         method: 'GET',
         url: '/api/blocks/v2',
         params: {
             keywords: keywords,
+            page: page,
+            limit: limit,
+            extra: extra,
         },
         pathParams: {
+
+
+
 
         },
     });
@@ -776,23 +816,6 @@ public async getBlock({
         pathParams: {
             blockName,
         },
-    });
-}
-
-/**
- * @summary 获取 Block 最后一次健康状态
- * @description 获取 Block 最后一次健康状态
- * @returns CreateBlockResp
- */
-public async blockHealthCheck(requestBody: ExecBlocksHealthCheckDto,
-): Promise<CreateBlockResp> {
-    return await this.httpClient.request({
-        method: 'POST',
-        url: '/api/blocks/healthCheck',
-        pathParams: {
-
-        },
-        data: requestBody,
     });
 }
 
@@ -831,14 +854,19 @@ public async parseFromOpenApi(requestBody: ParseBlockFromOpenApiDto,
 }
 
 /**
+ * @summary 向 vines 注册 block
+ * @description 向 vines 注册 block
  * @returns any
  */
-public async updateHealthRate(): Promise<any> {
+public async registerBlocks(requestBody: RegisterBlockDto,
+): Promise<any> {
     return await this.httpClient.request({
         method: 'POST',
-        url: '/api/blocks/updateHealthRate',
+        url: '/api/blocks/register',
         pathParams: {
+
         },
+        data: requestBody,
     });
 }
 
@@ -1262,6 +1290,107 @@ public async createWorkflowViewRelations(requestBody: UpsertWorkflowViewRelation
         method: 'POST',
         url: '/api/views/relations',
         pathParams: {
+
+        },
+        data: requestBody,
+    });
+}
+
+/**
+ * @summary 获取应用类型列表
+ * @description 获取应用类型列表
+ * @returns any
+ */
+public async listApplications(): Promise<any> {
+    return await this.httpClient.request({
+        method: 'GET',
+        url: '/api/application',
+        pathParams: {
+        },
+    });
+}
+
+/**
+ * @summary 获取应用鉴权 apiKey
+ * @description 返回一个应用专用的合法 apiKey，如果没有则创建
+ * @returns any
+ */
+public async getApiKeyByAppName(appName: string,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/application/{appName}/api-key',
+        pathParams: {
+            appName,
+        },
+    });
+}
+
+/**
+ * @summary 获取 application project 列表
+ * @description 获取 application project 列表
+ * @returns any
+ */
+public async listProjectsByAppName({
+    appName,
+    page = 1,
+    limit = 10,
+}: {
+    appName: string,
+    /** 当前页数，从 1 开始 **/
+    page?: number,
+    /** 每页数目，默认为 10 **/
+    limit?: number,
+}): Promise<any> {
+    return await this.httpClient.request({
+        method: 'GET',
+        url: '/api/application/{appName}/projects',
+        params: {
+            page: page,
+            limit: limit,
+        },
+        pathParams: {
+            appName,
+
+
+        },
+    });
+}
+
+/**
+ * @summary 创建 application project
+ * @description 创建 application project
+ * @returns any
+ */
+public async createProjectByAppName(appName: string,
+requestBody: CreateApplicationProjectDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/application/{appName}/projects',
+        pathParams: {
+            appName,
+
+        },
+        data: requestBody,
+    });
+}
+
+/**
+ * @summary 修改 application project
+ * @description 修改 application project
+ * @returns any
+ */
+public async updateProjectByAppName(appName: string,
+projectId: string,
+requestBody: CreateApplicationProjectDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'PUT',
+        url: '/api/application/{appName}/projects/{projectId}',
+        pathParams: {
+            appName,
+            projectId,
 
         },
         data: requestBody,

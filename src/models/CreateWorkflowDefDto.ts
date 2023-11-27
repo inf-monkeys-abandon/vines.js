@@ -2,13 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { WorkflowDefinition } from './WorkflowDefinition';
-
 export type CreateWorkflowDefDto = {
     /**
      * conductor workflow json 定义
      */
-    workflowDef: WorkflowDefinition;
+    workflowDef: any;
     /**
      * 工作流名称
      */
