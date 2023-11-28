@@ -2,5 +2,5 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type BlockDefProperties = {
+export type CreateTeamDto = {
 };

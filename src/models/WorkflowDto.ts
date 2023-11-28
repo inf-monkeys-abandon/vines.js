@@ -2,9 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { BlockDefProperties } from './BlockDefProperties';
-import type { WorkflowDefinition } from './WorkflowDefinition';
-
 export type WorkflowDto = {
     /**
      * ID
@@ -53,11 +50,11 @@ export type WorkflowDto = {
     /**
      * 工作流定义
      */
-    workflowDef: WorkflowDefinition;
+    workflowDef: any;
     /**
      * 变量
      */
-    variables?: Array<BlockDefProperties>;
+    variables?: Array<any>;
     /**
      * 从其派生的流程 ID
      */

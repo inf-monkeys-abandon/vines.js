@@ -19,6 +19,7 @@ import type { ExecuteBlockDto } from './models/ExecuteBlockDto';
 import type { GetBlockResp } from './models/GetBlockResp';
 import type { ListBlocksResp } from './models/ListBlocksResp';
 import type { ParseBlockFromOpenApiDto } from './models/ParseBlockFromOpenApiDto';
+import type { RegisterBlockDto } from './models/RegisterBlockDto';
 import type { CommonBooleanResposeDto } from './models/CommonBooleanResposeDto';
 import type { CreateWorkflowTemplateDto } from './models/CreateWorkflowTemplateDto';
 import type { ForkTemplateResp } from './models/ForkTemplateResp';
@@ -31,6 +32,12 @@ import type { CreateWorkflowViewDto } from './models/CreateWorkflowViewDto';
 import type { UpdateWorkflowViewDto } from './models/UpdateWorkflowViewDto';
 import type { UpsertWorkflowViewRelationDto } from './models/UpsertWorkflowViewRelationDto';
 import type { CreateApplicationProjectDto } from './models/CreateApplicationProjectDto';
+import type { ApplyJoinTeamDto } from './models/ApplyJoinTeamDto';
+import type { CreateTeamDto } from './models/CreateTeamDto';
+import type { InviteUser2TeamDto } from './models/InviteUser2TeamDto';
+import type { UpdateTeamDto } from './models/UpdateTeamDto';
+import type { CreatePageDto } from './models/CreatePageDto';
+import type { UpdatePagesDto } from './models/UpdatePagesDto';
 
 import { HttpClient, RequestConfig } from "./http/HttpClient";
 import { DEFAULT_OPTIONS, VinesClientOptions } from "./VinesClientOptions";
@@ -853,6 +860,23 @@ public async parseFromOpenApi(requestBody: ParseBlockFromOpenApiDto,
 }
 
 /**
+ * @summary 向 vines 注册 block
+ * @description 向 vines 注册 block
+ * @returns any
+ */
+public async registerBlocks(requestBody: RegisterBlockDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/blocks/register',
+        pathParams: {
+
+        },
+        data: requestBody,
+    });
+}
+
+/**
  * @summary 获取工作流模板列表
  * @description 获取工作流模板列表
  * @returns ListWorkflowTemplatesResp
@@ -1376,6 +1400,373 @@ requestBody: CreateApplicationProjectDto,
 
         },
         data: requestBody,
+    });
+}
+
+/**
+ * @returns any
+ */
+public async createTeam(requestBody: CreateTeamDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/teams/create',
+        pathParams: {
+
+        },
+        data: requestBody,
+    });
+}
+
+/**
+ * @returns any
+ */
+public async updateTeam(requestBody: UpdateTeamDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/teams/update',
+        pathParams: {
+
+        },
+        data: requestBody,
+    });
+}
+
+/**
+ * @returns any
+ */
+public async getUserTeams(): Promise<any> {
+    return await this.httpClient.request({
+        method: 'GET',
+        url: '/api/teams',
+        pathParams: {
+        },
+    });
+}
+
+/**
+ * @summary 获取团队信息
+ * @description 获取团队信息
+ * @returns any
+ */
+public async getTeamDetail({
+    id,
+}: {
+    id: string,
+}): Promise<any> {
+    return await this.httpClient.request({
+        method: 'GET',
+        url: '/api/teams/{id}/detail',
+        pathParams: {
+            id,
+        },
+    });
+}
+
+/**
+ * @returns any
+ */
+public async getTeamMembers({
+    id,
+}: {
+    id: string,
+}): Promise<any> {
+    return await this.httpClient.request({
+        method: 'GET',
+        url: '/api/teams/{id}/members',
+        pathParams: {
+            id,
+        },
+    });
+}
+
+/**
+ * @returns any
+ */
+public async removeTeamMember(id: string,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/teams/{id}/members/remove',
+        pathParams: {
+            id,
+        },
+    });
+}
+
+/**
+ * @returns any
+ */
+public async searchUser(): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/teams/search',
+        pathParams: {
+        },
+    });
+}
+
+/**
+ * @returns any
+ */
+public async getTeamInvite({
+    id,
+}: {
+    id: string,
+}): Promise<any> {
+    return await this.httpClient.request({
+        method: 'GET',
+        url: '/api/teams/invites/{id}',
+        pathParams: {
+            id,
+        },
+    });
+}
+
+/**
+ * @returns any
+ */
+public async acceptTeamInvite(id: string,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/teams/invites/{id}/accept',
+        pathParams: {
+            id,
+        },
+    });
+}
+
+/**
+ * @returns any
+ */
+public async getTeamInvites({
+    teamId,
+}: {
+    teamId: string,
+}): Promise<any> {
+    return await this.httpClient.request({
+        method: 'GET',
+        url: '/api/teams/invites/manage/{teamId}',
+        pathParams: {
+            teamId,
+        },
+    });
+}
+
+/**
+ * @returns any
+ */
+public async inviteUserToTeam(teamId: string,
+requestBody: InviteUser2TeamDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/teams/invites/{teamId}',
+        pathParams: {
+            teamId,
+
+        },
+        data: requestBody,
+    });
+}
+
+/**
+ * @returns any
+ */
+public async updateTeamInviteRemark(inviteId: string,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/teams/invites/manage/{teamId}/remark/{inviteId}',
+        pathParams: {
+            inviteId,
+        },
+    });
+}
+
+/**
+ * @returns any
+ */
+public async toggleForeverTeamInviteLinkStatus(inviteId: string,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/teams/invites/manage/{teamId}/toggle/{inviteId}',
+        pathParams: {
+            inviteId,
+        },
+    });
+}
+
+/**
+ * @returns any
+ */
+public async deleteTeamInvite(inviteId: string,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/teams/invites/manage/{teamId}/delete/{inviteId}',
+        pathParams: {
+            inviteId,
+        },
+    });
+}
+
+/**
+ * @returns any
+ */
+public async getApplyJoinTeamList({
+    teamId,
+}: {
+    teamId: string,
+}): Promise<any> {
+    return await this.httpClient.request({
+        method: 'GET',
+        url: '/api/teams/apply/{teamId}',
+        pathParams: {
+            teamId,
+        },
+    });
+}
+
+/**
+ * @returns any
+ */
+public async applyJoinTeam(teamId: string,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/teams/apply/{teamId}',
+        pathParams: {
+            teamId,
+        },
+    });
+}
+
+/**
+ * @returns any
+ */
+public async updateApplyJoinTeam(teamId: string,
+requestBody: ApplyJoinTeamDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/teams/apply/{teamId}/update',
+        pathParams: {
+            teamId,
+
+        },
+        data: requestBody,
+    });
+}
+
+/**
+ * @summary 获取视图类型定义
+ * @description 获取视图类型定义
+ * @returns any
+ */
+public async listPageTypes(): Promise<any> {
+    return await this.httpClient.request({
+        method: 'GET',
+        url: '/api/page-types',
+        pathParams: {
+        },
+    });
+}
+
+/**
+ * @summary 获取工作流下的所有视图（根据 sortIndex 从小到大排序），返回视图列表
+ * @description 获取工作流下的所有视图（根据 sortIndex 从小到大排序），返回视图列表
+ * @returns any
+ */
+public async listWorkflowPages({
+    workflowId,
+}: {
+    workflowId: string,
+}): Promise<any> {
+    return await this.httpClient.request({
+        method: 'GET',
+        url: '/api/workflow/{workflowId}/pages',
+        pathParams: {
+            workflowId,
+        },
+    });
+}
+
+/**
+ * @summary 在工作流下创建视图，返回新的视图列表
+ * @description 在工作流下创建视图，返回新的视图列表
+ * @returns any
+ */
+public async createWorkflowPage(workflowId: string,
+requestBody: CreatePageDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/workflow/{workflowId}/pages',
+        pathParams: {
+            workflowId,
+
+        },
+        data: requestBody,
+    });
+}
+
+/**
+ * @summary 批量修改视图，可以用来更新 sortIndex，返回新的视图列表
+ * @description 批量修改视图，可以用来更新 sortIndex，返回新的视图列表
+ * @returns any
+ */
+public async updateWorkflowPages(workflowId: string,
+requestBody: UpdatePagesDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'PUT',
+        url: '/api/workflow/{workflowId}/pages',
+        pathParams: {
+            workflowId,
+
+        },
+        data: requestBody,
+    });
+}
+
+/**
+ * @summary 获取工作流视图详情
+ * @description 获取工作流视图详情，无需鉴权
+ * @returns any
+ */
+public async getWorkflowPageByPageId({
+    pageId,
+}: {
+    pageId: string,
+}): Promise<any> {
+    return await this.httpClient.request({
+        method: 'GET',
+        url: '/api/pages/{pageId}',
+        pathParams: {
+            pageId,
+        },
+    });
+}
+
+/**
+ * @summary 删除视图，返回新的视图列表
+ * @description 删除视图，返回新的视图列表
+ * @returns any
+ */
+public async removeWorkflowPage(workflowId: string,
+pageId: string,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'DELETE',
+        url: '/api/workflow/{workflowId}/pages/{pageId}',
+        pathParams: {
+            workflowId,
+            pageId,
+        },
     });
 }
 

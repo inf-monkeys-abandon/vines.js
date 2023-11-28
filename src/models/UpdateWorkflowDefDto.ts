@@ -2,8 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { WorkflowDefinition } from './WorkflowDefinition';
-
 export type UpdateWorkflowDefDto = {
     /**
      * 工作流名称
@@ -24,7 +22,7 @@ export type UpdateWorkflowDefDto = {
     /**
      * conductor workflow json 定义
      */
-    workflowDef?: WorkflowDefinition;
+    workflowDef?: any;
     /**
      * workflow 全局变量（非 conductor 能力）
      */
