@@ -38,6 +38,7 @@ import type { InviteUser2TeamDto } from './models/InviteUser2TeamDto';
 import type { UpdateTeamDto } from './models/UpdateTeamDto';
 import type { CreatePageDto } from './models/CreatePageDto';
 import type { UpdatePagesDto } from './models/UpdatePagesDto';
+
 import { HttpClient, RequestConfig } from "./http/HttpClient";
 import { DEFAULT_OPTIONS, VinesClientOptions } from "./VinesClientOptions";
 
