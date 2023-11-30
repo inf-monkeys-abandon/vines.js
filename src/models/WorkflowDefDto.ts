@@ -47,7 +47,6 @@ export type WorkflowTaskDefinition = {
     name: string;
     version: number;
   };
-  subWorkflowDef?: Partial<WorkflowDefinition>;
   loopCondition?: string;
   loopOver?: WorkflowTaskDefinition[];
 };

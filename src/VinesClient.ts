@@ -32,6 +32,8 @@ import type { CreateWorkflowViewDto } from './models/CreateWorkflowViewDto';
 import type { UpdateWorkflowViewDto } from './models/UpdateWorkflowViewDto';
 import type { UpsertWorkflowViewRelationDto } from './models/UpsertWorkflowViewRelationDto';
 import type { CreateApplicationProjectDto } from './models/CreateApplicationProjectDto';
+import type { CreateApplicationProjectFileDto } from './models/CreateApplicationProjectFileDto';
+import type { UpdateApplicationProjectFileDto } from './models/UpdateApplicationProjectFileDto';
 import type { ApplyJoinTeamDto } from './models/ApplyJoinTeamDto';
 import type { CreateTeamDto } from './models/CreateTeamDto';
 import type { InviteUser2TeamDto } from './models/InviteUser2TeamDto';
@@ -1321,7 +1323,7 @@ public async listApplications(): Promise<any> {
  * @description 返回一个应用专用的合法 apiKey，如果没有则创建
  * @returns any
  */
-public async getApiKeyByAppName(appName: string,
+public async getApiKey(appName: string,
 ): Promise<any> {
     return await this.httpClient.request({
         method: 'POST',
@@ -1337,7 +1339,7 @@ public async getApiKeyByAppName(appName: string,
  * @description 获取 application project 列表
  * @returns any
  */
-public async listProjectsByAppName({
+public async listProjects({
     appName,
     page = 1,
     limit = 10,
@@ -1368,7 +1370,7 @@ public async listProjectsByAppName({
  * @description 创建 application project
  * @returns any
  */
-public async createProjectByAppName(appName: string,
+public async createProject(appName: string,
 requestBody: CreateApplicationProjectDto,
 ): Promise<any> {
     return await this.httpClient.request({
@@ -1383,11 +1385,33 @@ requestBody: CreateApplicationProjectDto,
 }
 
 /**
+ * @summary 获取 application project
+ * @description 获取 application project
+ * @returns any
+ */
+public async getProjectById({
+    appName,
+    projectId,
+}: {
+    appName: string,
+    projectId: string,
+}): Promise<any> {
+    return await this.httpClient.request({
+        method: 'GET',
+        url: '/api/application/{appName}/projects/{projectId}',
+        pathParams: {
+            appName,
+            projectId,
+        },
+    });
+}
+
+/**
  * @summary 修改 application project
  * @description 修改 application project
  * @returns any
  */
-public async updateProjectByAppName(appName: string,
+public async updateProject(appName: string,
 projectId: string,
 requestBody: CreateApplicationProjectDto,
 ): Promise<any> {
@@ -1396,6 +1420,60 @@ requestBody: CreateApplicationProjectDto,
         url: '/api/application/{appName}/projects/{projectId}',
         pathParams: {
             appName,
+            projectId,
+
+        },
+        data: requestBody,
+    });
+}
+
+/**
+ * @summary 修改 application project file
+ * @description 修改 application project file
+ * @returns any
+ */
+public async updateProjectFile(fileId: string,
+requestBody: UpdateApplicationProjectFileDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'PUT',
+        url: '/api/application/{appName}/projects/{projectId}/files/{fileId}',
+        pathParams: {
+            fileId,
+
+        },
+        data: requestBody,
+    });
+}
+
+/**
+ * @summary 删除 application project file
+ * @description 删除 application project file
+ * @returns any
+ */
+public async removeProjectFile(fileId: string,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'DELETE',
+        url: '/api/application/{appName}/projects/{projectId}/files/{fileId}',
+        pathParams: {
+            fileId,
+        },
+    });
+}
+
+/**
+ * @summary 创建 application project file
+ * @description 创建 application project file
+ * @returns any
+ */
+public async createProjectFile(projectId: string,
+requestBody: CreateApplicationProjectFileDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/application/{appName}/projects/{projectId}/files',
+        pathParams: {
             projectId,
 
         },
