@@ -1432,13 +1432,15 @@ requestBody: CreateApplicationProjectDto,
  * @description 修改 application project file
  * @returns any
  */
-public async updateProjectFile(fileId: string,
+public async updateProjectFile(projectId: string,
+fileId: string,
 requestBody: UpdateApplicationProjectFileDto,
 ): Promise<any> {
     return await this.httpClient.request({
         method: 'PUT',
-        url: '/api/application/{appName}/projects/{projectId}/files/{fileId}',
+        url: '/api/application/vines-canvas/projects/{projectId}/files/{fileId}',
         pathParams: {
+            projectId,
             fileId,
 
         },
@@ -1452,12 +1454,14 @@ requestBody: UpdateApplicationProjectFileDto,
  * @returns any
  */
 public async removeProjectFile(fileId: string,
+projectId: string,
 ): Promise<any> {
     return await this.httpClient.request({
         method: 'DELETE',
-        url: '/api/application/{appName}/projects/{projectId}/files/{fileId}',
+        url: '/api/application/vines-canvas/projects/{projectId}/files/{fileId}',
         pathParams: {
             fileId,
+            projectId,
         },
     });
 }
@@ -1472,7 +1476,7 @@ requestBody: CreateApplicationProjectFileDto,
 ): Promise<any> {
     return await this.httpClient.request({
         method: 'POST',
-        url: '/api/application/{appName}/projects/{projectId}/files',
+        url: '/api/application/vines-canvas/projects/{projectId}/files',
         pathParams: {
             projectId,
 
