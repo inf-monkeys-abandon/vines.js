@@ -40,6 +40,10 @@ import type { InviteUser2TeamDto } from './models/InviteUser2TeamDto';
 import type { UpdateTeamDto } from './models/UpdateTeamDto';
 import type { CreatePageDto } from './models/CreatePageDto';
 import type { UpdatePagesDto } from './models/UpdatePagesDto';
+import type { BatchActionDto } from './models/BatchActionDto';
+import type { CreateResourceDto } from './models/CreateResourceDto';
+import type { GetResourceDto } from './models/GetResourceDto';
+import type { UpdateResourceDto } from './models/UpdateResourceDto';
 
 import { HttpClient, RequestConfig } from "./http/HttpClient";
 import { DEFAULT_OPTIONS, VinesClientOptions } from "./VinesClientOptions";
@@ -1848,6 +1852,168 @@ pageId: string,
         pathParams: {
             workflowId,
             pageId,
+        },
+    });
+}
+
+/**
+ * @returns any
+ */
+public async uploadFile(): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/resources/upload/img',
+        pathParams: {
+        },
+    });
+}
+
+/**
+ * @returns any
+ */
+public async getResourceCategories(): Promise<any> {
+    return await this.httpClient.request({
+        method: 'GET',
+        url: '/api/resources/categories',
+        pathParams: {
+        },
+    });
+}
+
+/**
+ * @returns any
+ */
+public async createCategory(): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/resources/categories',
+        pathParams: {
+        },
+    });
+}
+
+/**
+ * @returns any
+ */
+public async deleteCategory(id: string,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/resources/categories/{id}/delete',
+        pathParams: {
+            id,
+        },
+    });
+}
+
+/**
+ * @returns any
+ */
+public async deleteResource(id: string,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/resources/{id}/delete',
+        pathParams: {
+            id,
+        },
+    });
+}
+
+/**
+ * @returns any
+ */
+public async updateResource(id: string,
+requestBody: UpdateResourceDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/resources/{id}/update',
+        pathParams: {
+            id,
+
+        },
+        data: requestBody,
+    });
+}
+
+/**
+ * @returns any
+ */
+public async getResources(requestBody: GetResourceDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/resources/{type}/list',
+        pathParams: {
+
+        },
+        data: requestBody,
+    });
+}
+
+/**
+ * @returns any
+ */
+public async batchDelete(): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/resources/delete',
+        pathParams: {
+        },
+    });
+}
+
+/**
+ * @returns any
+ */
+public async batchAction(requestBody: BatchActionDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/resources/batch',
+        pathParams: {
+
+        },
+        data: requestBody,
+    });
+}
+
+/**
+ * @returns any
+ */
+public async getBatchActionStatus(): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/resources/batch/status',
+        pathParams: {
+        },
+    });
+}
+
+/**
+ * @returns any
+ */
+public async createResource(requestBody: CreateResourceDto,
+): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/resources',
+        pathParams: {
+
+        },
+        data: requestBody,
+    });
+}
+
+/**
+ * @returns any
+ */
+public async dataset(): Promise<any> {
+    return await this.httpClient.request({
+        method: 'POST',
+        url: '/api/resources/createDataset',
+        pathParams: {
         },
     });
 }
