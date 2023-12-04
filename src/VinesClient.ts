@@ -1944,7 +1944,7 @@ public async getResources(requestBody: GetResourceDto,
 ): Promise<any> {
     return await this.httpClient.request({
         method: 'POST',
-        url: '/api/resources/{type}/list',
+        url: '/api/resources/list',
         pathParams: {
 
         },
