@@ -28,4 +28,8 @@ export type CreateWorkflowDefDto = {
      * workflow 全局变量（非 conductor 能力）
      */
     variables?: Array<string>;
+    /**
+     * 工作流输出配置
+     */
+    output?: Array<string>;
 };

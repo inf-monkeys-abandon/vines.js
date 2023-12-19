@@ -42,4 +42,8 @@ export type SearchWorkflowExecutionsDto = {
      * 按照时间排序规则
      */
     orderBy?: SearchWorkflowExecutionsOrderDto;
+    /**
+     * Chat Session Id 列表
+     */
+    chatSessionIds?: Array<string>;
 };
