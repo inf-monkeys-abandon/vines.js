@@ -33,8 +33,8 @@ export const CODE_EXECUTION_MODES = ["runOnceForAllItems", "runOnceForEachItem"]
 
 export type CodeAutocompleteTypes = "function" | "functionItem";
 export type EditorType = "code" | "codeNodeEditor" | "htmlEditor" | "sqlEditor" | "json";
-export type CodeNodeEditorLanguage = typeof CODE_LANGUAGES[number];
-export type CodeExecutionMode = typeof CODE_EXECUTION_MODES[number];
+export type CodeNodeEditorLanguage = (typeof CODE_LANGUAGES)[number];
+export type CodeExecutionMode = (typeof CODE_EXECUTION_MODES)[number];
 export type SQLDialect =
   | "StandardSQL"
   | "PostgreSQL"
@@ -153,7 +153,7 @@ export interface BlockDefProperties {
   example?: string;
   extractValue?: BlockDefPropertyValueExtractorRegex;
   properties?: BlockDefProperties[];
-  assetType?: AssetType
+  assetType?: AssetType;
 }
 
 export interface BlockDefOutput {
@@ -164,7 +164,19 @@ export interface BlockDefOutput {
   properties?: BlockDefOutput[];
 }
 
-export type BlockDefCategory = "image" | "llm" | "text" | "progress" | "im" | "bio" | "common" | "modelEnhance";
+export type BlockDefCategory =
+  | "gen-img"
+  | "gen-text"
+  | "img"
+  | "text"
+  | "file"
+  | "query"
+  | "store"
+  | "train-model"
+  | "auto"
+  | "process"
+  | "people"
+  | "plugin";
 
 export enum BlockType {
   SIMPLE = "SIMPLE",
