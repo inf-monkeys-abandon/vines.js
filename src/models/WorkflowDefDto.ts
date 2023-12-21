@@ -1,5 +1,3 @@
-import { BlockType } from "./BlockDefDto";
-
 export type TaskDefinition = {
   name: string;
   retryCount: number;
@@ -41,7 +39,7 @@ export interface InputParametersType {
 export type WorkflowTaskDefinition = {
   name: string;
   taskReferenceName: string;
-  type: BlockType;
+  type: string;
   inputParameters: InputParametersType;
   startDelay?: number;
   optional?: boolean;
@@ -49,7 +47,6 @@ export type WorkflowTaskDefinition = {
     name: string;
     version: number;
   };
-  subWorkflowDef?: Partial<WorkflowDefinition>;
   loopCondition?: string;
   loopOver?: WorkflowTaskDefinition[];
 };
@@ -69,10 +66,10 @@ export interface WorkflowDefinition {
 }
 
 export enum TaskStatus {
-  IN_PROGRESS = 'IN_PROGRESS',
-  FAILED = 'FAILED',
-  FAILED_WITH_TERMINAL_ERROR = 'FAILED_WITH_TERMINAL_ERROR',
-  COMPLETED = 'COMPLETED',
+  IN_PROGRESS = "IN_PROGRESS",
+  FAILED = "FAILED",
+  FAILED_WITH_TERMINAL_ERROR = "FAILED_WITH_TERMINAL_ERROR",
+  COMPLETED = "COMPLETED",
 }
 
 export type TaskBody = {

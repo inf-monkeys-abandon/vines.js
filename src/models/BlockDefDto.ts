@@ -33,8 +33,8 @@ export const CODE_EXECUTION_MODES = ["runOnceForAllItems", "runOnceForEachItem"]
 
 export type CodeAutocompleteTypes = "function" | "functionItem";
 export type EditorType = "code" | "codeNodeEditor" | "htmlEditor" | "sqlEditor" | "json";
-export type CodeNodeEditorLanguage = (typeof CODE_LANGUAGES)[number];
-export type CodeExecutionMode = (typeof CODE_EXECUTION_MODES)[number];
+export type CodeNodeEditorLanguage = typeof CODE_LANGUAGES[number];
+export type CodeExecutionMode = typeof CODE_EXECUTION_MODES[number];
 export type SQLDialect =
   | "StandardSQL"
   | "PostgreSQL"
@@ -153,7 +153,7 @@ export interface BlockDefProperties {
   example?: string;
   extractValue?: BlockDefPropertyValueExtractorRegex;
   properties?: BlockDefProperties[];
-  assetType?: AssetType;
+  assetType?: AssetType
 }
 
 export interface BlockDefOutput {
@@ -164,20 +164,7 @@ export interface BlockDefOutput {
   properties?: BlockDefOutput[];
 }
 
-export type BlockDefCategory =
-  | "gen-img" // 图像生成
-  | "gen-text" // 文本生成
-  | "img" // 图像处理
-  | "text" // 文本处理
-  | "file" // 文件处理
-  | "query" // 搜索增强
-  | "store" // 数据存储
-  | "train-model" // 模型训练
-  | "auto" // 自动化
-  | "process" // 流程控制
-  | "people" // 用户交互
-  | "plugin" // 扩展能力
-  | "bio"; // 生命科学
+export type BlockDefCategory = "image" | "llm" | "text" | "progress" | "im" | "bio" | "common" | "modelEnhance";
 
 export enum BlockType {
   SIMPLE = "SIMPLE",
