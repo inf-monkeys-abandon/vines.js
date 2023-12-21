@@ -165,18 +165,19 @@ export interface BlockDefOutput {
 }
 
 export type BlockDefCategory =
-  | "gen-img"
-  | "gen-text"
-  | "img"
-  | "text"
-  | "file"
-  | "query"
-  | "store"
-  | "train-model"
-  | "auto"
-  | "process"
-  | "people"
-  | "plugin";
+  | "gen-img" // 图像生成
+  | "gen-text" // 文本生成
+  | "img" // 图像处理
+  | "text" // 文本处理
+  | "file" // 文件处理
+  | "query" // 搜索增强
+  | "store" // 数据存储
+  | "train-model" // 模型训练
+  | "auto" // 自动化
+  | "process" // 流程控制
+  | "people" // 用户交互
+  | "plugin" // 扩展能力
+  | "bio"; // 生命科学
 
 export enum BlockType {
   SIMPLE = "SIMPLE",
