@@ -4,9 +4,9 @@
 
 export type StartWorkflowDto = {
     /**
-     * 工作流版本
+     * 工作流版本，默认为最新版本
      */
-    version: number;
+    version?: number;
     /**
      * 启动数据
      */
