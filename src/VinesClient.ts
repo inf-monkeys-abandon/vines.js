@@ -181,10 +181,10 @@ export class VinesClient {
    */
   public async getWorkflowDef({
     workflowId,
-    version = 1,
+    version,
   }: {
     workflowId: string;
-    /** 工作流名称 **/
+    /** 工作流版本，默认获取最新的版本 **/
     version?: number;
   }): Promise<any> {
     return await this.httpClient.request({
