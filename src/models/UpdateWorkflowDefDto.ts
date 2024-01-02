@@ -4,6 +4,10 @@
 
 export type UpdateWorkflowDefDto = {
     /**
+     * 工作流版本
+     */
+    version: number;
+    /**
      * 工作流名称
      */
     name?: string;

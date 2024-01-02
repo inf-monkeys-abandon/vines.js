@@ -16,6 +16,10 @@ export type CreateWorkflowTemplateDto = {
      */
     categoryIds: Array<string>;
     /**
+     * 工作流版本
+     */
+    workflowVersion: number;
+    /**
      * 模板 ID
      */
     workflowId: string;

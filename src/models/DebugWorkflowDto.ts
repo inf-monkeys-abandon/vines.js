@@ -2,17 +2,17 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type StartWorkflowDto = {
+export type DebugWorkflowDto = {
     /**
-     * 工作流版本
+     * 工作流 task 定义
      */
-    version: number;
+    tasks: Array<string>;
     /**
      * 启动数据
      */
     inputData?: any;
     /**
-     * 对应的 chat session 会话 id
+     * 工作流输出配置
      */
-    chatSessionId?: string;
+    output?: Array<string>;
 };

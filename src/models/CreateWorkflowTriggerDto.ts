@@ -19,6 +19,10 @@ export type CreateWorkflowTriggerDto = {
      * Webhook 触发器配置
      */
     webhookConfig?: any;
+    /**
+     * 工作流版本
+     */
+    version: number;
 };
 
 export namespace CreateWorkflowTriggerDto {

@@ -19,9 +19,17 @@ export type SearchWorkflowExecutionsDto = {
      */
     creatorUserId?: string;
     /**
+     * 工作流版本号
+     */
+    versions?: Array<string>;
+    /**
      * 工作流状态
      */
     status?: Array<'RUNNING' | 'COMPLETED' | 'FAILED' | 'TIMED_OUT' | 'TERMINATED' | 'PAUSED'>;
+    /**
+     * 工作流触发方式
+     */
+    triggerTypes?: Array<'MANUAL' | 'SCHEDULER' | 'WEBHOOK'>;
     /**
      * 启动工作流的用户 ID，支持同时传多个用户
      */

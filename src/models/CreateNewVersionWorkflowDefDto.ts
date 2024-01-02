@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type ImportWorkflowDto = {
+export type CreateNewVersionWorkflowDefDto = {
     /**
-     * conductor workflow json 定义
+     * 工作流版本
      */
-    workflowDef: any;
+    version: number;
     /**
      * 工作流名称
      */
@@ -20,11 +20,15 @@ export type ImportWorkflowDto = {
      */
     logo?: string;
     /**
-     * 表单配置
+     * conductor workflow json 定义
+     */
+    workflowDef?: any;
+    /**
+     * workflow 全局变量（非 conductor 能力）
      */
     variables?: Array<string>;
     /**
-     * 触发器配置
+     * 工作流输出配置
      */
-    triggers?: Array<string>;
+    output?: Array<string>;
 };

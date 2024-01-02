@@ -12,6 +12,10 @@ export type UpdateWorkflowTemplateDto = {
      */
     name?: string;
     /**
+     * 工作流版本
+     */
+    workflowVersion: number;
+    /**
      * 描述
      */
     desc?: string;
