@@ -26,13 +26,28 @@ export type BlockDefPropertyTypes =
   // 多字段的对象
   | "multiFieldObject"
   | "any"
-  | "jsonObject";
+  | "jsonObject"
+  | "nestedJsonObject"
+  | "nestedArray"
+  | "jsonString"
+  // 特殊节点
+  | "selectWorkflowVersion"
+  | "selectVectorCollection"
+  | "forkTaskJoinOnMultiOptions";
 
 export const CODE_LANGUAGES = ["javaScript", "json", "python"] as const;
-export const CODE_EXECUTION_MODES = ["runOnceForAllItems", "runOnceForEachItem"] as const;
+export const CODE_EXECUTION_MODES = [
+  "runOnceForAllItems",
+  "runOnceForEachItem",
+] as const;
 
 export type CodeAutocompleteTypes = "function" | "functionItem";
-export type EditorType = "code" | "codeNodeEditor" | "htmlEditor" | "sqlEditor" | "json";
+export type EditorType =
+  | "code"
+  | "codeNodeEditor"
+  | "htmlEditor"
+  | "sqlEditor"
+  | "json";
 export type CodeNodeEditorLanguage = (typeof CODE_LANGUAGES)[number];
 export type CodeExecutionMode = (typeof CODE_EXECUTION_MODES)[number];
 export type SQLDialect =
@@ -87,7 +102,12 @@ export interface BlockDefPropertyTypeOptions {
   [key: string]: any;
 }
 
-export type BlockDefParameterValue = string | number | boolean | undefined | null;
+export type BlockDefParameterValue =
+  | string
+  | number
+  | boolean
+  | undefined
+  | null;
 
 export type ResourceLocatorModes = "id" | "url" | "list" | string;
 export interface IResourceLocatorResult {
@@ -101,7 +121,10 @@ export interface BlockDefParameter {
 }
 export type BlockDefParameterValueType =
   // TODO: Later also has to be possible to add multiple ones with the name name. So array has to be possible
-  BlockDefParameterValue | BlockDefParameter | BlockDefParameterValue[] | BlockDefParameter[];
+  | BlockDefParameterValue
+  | BlockDefParameter
+  | BlockDefParameterValue[]
+  | BlockDefParameter[];
 
 export interface BlockDefDisplayOptions {
   hide?: {
@@ -145,7 +168,9 @@ export interface BlockDefProperties {
   description?: string;
   hint?: string;
   displayOptions?: BlockDefDisplayOptions;
-  options?: Array<BlockDefPropertyOptions | BlockDefProperties | BlockDefPropertyCollection>;
+  options?: Array<
+    BlockDefPropertyOptions | BlockDefProperties | BlockDefPropertyCollection
+  >;
   placeholder?: string;
   isNodeSetting?: boolean;
   noDataExpression?: boolean;
