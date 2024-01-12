@@ -33,7 +33,9 @@ export type BlockDefPropertyTypes =
   // 特殊节点
   | "selectWorkflowVersion"
   | "selectVectorCollection"
-  | "forkTaskJoinOnMultiOptions";
+  | "forkTaskJoinOnMultiOptions"
+  | 'file'
+  ;
 
 export const CODE_LANGUAGES = ["javaScript", "json", "python"] as const;
 export const CODE_EXECUTION_MODES = [

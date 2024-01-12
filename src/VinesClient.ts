@@ -44,10 +44,15 @@ import type { CreatePageDto } from "./models/CreatePageDto";
 import type { UpdatePagesDto } from "./models/UpdatePagesDto";
 import type { BatchActionDto } from "./models/BatchActionDto";
 import type { CreateResourceDto } from "./models/CreateResourceDto";
-import type { GetResourceDto } from "./models/GetResourceDto";
+import type { ListDto } from "./models/ListDto";
 import type { UpdateResourceDto } from "./models/UpdateResourceDto";
 import type { CreateChatSessionDto } from "./models/CreateChatSessionDto";
 import type { UpdateChatSessionDto } from "./models/UpdateChatSessionDto";
+import type { LoginDto } from "./models/LoginDto";
+import type { UpdateUgcFilterRuleDto } from "./models/UpdateUgcFilterRuleDto";
+import type { UpdateUgcItemDto } from "./models/UpdateUgcItemDto";
+import type { UpdateUserInfoDto } from "./models/UpdateUserInfoDto";
+import type { CreateApiKeyDto } from "./models/CreateApiKeyDto";
 
 import { HttpClient, RequestConfig } from "./http/HttpClient";
 import { DEFAULT_OPTIONS, VinesClientOptions } from "./VinesClientOptions";
@@ -211,6 +216,43 @@ export class VinesClient {
       pathParams: {
         workflowId,
       },
+    });
+  }
+
+  /**
+   * @summary 获取工作流列表
+   * @description 获取工作流列表
+   * @returns any
+   */
+  public async listWorkflowV2({
+    page = 1,
+    limit = 10,
+    search,
+    orderColumn,
+    orderBy,
+  }: {
+    /** 当前页数，从 1 开始 **/
+    page?: number;
+    /** 每页数目，默认为 10 **/
+    limit?: number;
+    /** 搜索关键词 **/
+    search?: string;
+    /** 排序字段 **/
+    orderColumn?: string;
+    /** 排序规则 **/
+    orderBy?: string;
+  }): Promise<any> {
+    return await this.httpClient.request({
+      method: "GET",
+      url: "/api/workflow/list",
+      params: {
+        page: page,
+        limit: limit,
+        search: search,
+        orderColumn: orderColumn,
+        orderBy: orderBy,
+      },
+      pathParams: {},
     });
   }
 
@@ -1346,12 +1388,21 @@ export class VinesClient {
     appName,
     page = 1,
     limit = 10,
+    search,
+    orderColumn,
+    orderBy,
   }: {
     appName: string;
     /** 当前页数，从 1 开始 **/
     page?: number;
     /** 每页数目，默认为 10 **/
     limit?: number;
+    /** 搜索关键词 **/
+    search?: string;
+    /** 排序字段 **/
+    orderColumn?: string;
+    /** 排序规则 **/
+    orderBy?: string;
   }): Promise<any> {
     return await this.httpClient.request({
       method: "GET",
@@ -1359,6 +1410,9 @@ export class VinesClient {
       params: {
         page: page,
         limit: limit,
+        search: search,
+        orderColumn: orderColumn,
+        orderBy: orderBy,
       },
       pathParams: {
         appName,
@@ -1540,6 +1594,19 @@ export class VinesClient {
   /**
    * @returns any
    */
+  public async deleteTeam(id: string): Promise<any> {
+    return await this.httpClient.request({
+      method: "DELETE",
+      url: "/api/teams/{id}",
+      pathParams: {
+        id,
+      },
+    });
+  }
+
+  /**
+   * @returns any
+   */
   public async getTeamMembers({ id }: { id: string }): Promise<any> {
     return await this.httpClient.request({
       method: "GET",
@@ -1566,7 +1633,7 @@ export class VinesClient {
   /**
    * @returns any
    */
-  public async searchUser(): Promise<any> {
+  public async searchTeam(): Promise<any> {
     return await this.httpClient.request({
       method: "POST",
       url: "/api/teams/search",
@@ -1829,6 +1896,30 @@ export class VinesClient {
   /**
    * @returns any
    */
+  public async listPublicPages(): Promise<any> {
+    return await this.httpClient.request({
+      method: "GET",
+      url: "/api/pages",
+      pathParams: {},
+    });
+  }
+
+  /**
+   * @returns any
+   */
+  public async pinPage(pageId: string): Promise<any> {
+    return await this.httpClient.request({
+      method: "POST",
+      url: "/api/pages/{pageId}/pin",
+      pathParams: {
+        pageId,
+      },
+    });
+  }
+
+  /**
+   * @returns any
+   */
   public async uploadFile(): Promise<any> {
     return await this.httpClient.request({
       method: "POST",
@@ -1905,7 +1996,7 @@ export class VinesClient {
   /**
    * @returns any
    */
-  public async getResources(requestBody: GetResourceDto): Promise<any> {
+  public async listResources(requestBody: ListDto): Promise<any> {
     return await this.httpClient.request({
       method: "POST",
       url: "/api/resources/list",
@@ -2037,11 +2128,261 @@ export class VinesClient {
   /**
    * @returns any
    */
+  public async listFilterRules(): Promise<any> {
+    return await this.httpClient.request({
+      method: "GET",
+      url: "/api/ugc/filters",
+      pathParams: {},
+    });
+  }
+
+  /**
+   * @returns any
+   */
+  public async createFilterRule(
+    requestBody: UpdateUgcFilterRuleDto
+  ): Promise<any> {
+    return await this.httpClient.request({
+      method: "POST",
+      url: "/api/ugc/filters",
+      pathParams: {},
+      data: requestBody,
+    });
+  }
+
+  /**
+   * @returns any
+   */
+  public async updateFilterRule(
+    id: string,
+    requestBody: UpdateUgcFilterRuleDto
+  ): Promise<any> {
+    return await this.httpClient.request({
+      method: "PUT",
+      url: "/api/ugc/filters/{id}",
+      pathParams: {
+        id,
+      },
+      data: requestBody,
+    });
+  }
+
+  /**
+   * @returns any
+   */
+  public async removeFilterRule(id: string): Promise<any> {
+    return await this.httpClient.request({
+      method: "DELETE",
+      url: "/api/ugc/filters/{id}",
+      pathParams: {
+        id,
+      },
+    });
+  }
+
+  /**
+   * @returns any
+   */
+  public async listTags(): Promise<any> {
+    return await this.httpClient.request({
+      method: "GET",
+      url: "/api/ugc/tags",
+      pathParams: {},
+    });
+  }
+
+  /**
+   * @returns any
+   */
+  public async upsertTag(): Promise<any> {
+    return await this.httpClient.request({
+      method: "POST",
+      url: "/api/ugc/tags",
+      pathParams: {},
+    });
+  }
+
+  /**
+   * @returns any
+   */
+  public async updateUgcItem(requestBody: UpdateUgcItemDto): Promise<any> {
+    return await this.httpClient.request({
+      method: "POST",
+      url: "/api/ugc/update",
+      pathParams: {},
+      data: requestBody,
+    });
+  }
+
+  /**
+   * @returns any
+   */
+  public async removeTag(tagId: string): Promise<any> {
+    return await this.httpClient.request({
+      method: "DELETE",
+      url: "/api/ugc/tags/{tagId}",
+      pathParams: {
+        tagId,
+      },
+    });
+  }
+
+  /**
+   * @returns any
+   */
   public async getOemConfig(): Promise<any> {
     return await this.httpClient.request({
       method: "GET",
       url: "/api/configs",
       pathParams: {},
+    });
+  }
+
+  /**
+   * @returns any
+   */
+  public async getUserInfo(): Promise<any> {
+    return await this.httpClient.request({
+      method: "GET",
+      url: "/api/users",
+      pathParams: {},
+    });
+  }
+
+  /**
+   * @returns any
+   */
+  public async updateUserInfo(requestBody: UpdateUserInfoDto): Promise<any> {
+    return await this.httpClient.request({
+      method: "POST",
+      url: "/api/users/profile",
+      pathParams: {},
+      data: requestBody,
+    });
+  }
+
+  /**
+   * @returns any
+   */
+  public async getUserResources(): Promise<any> {
+    return await this.httpClient.request({
+      method: "GET",
+      url: "/api/users/resources",
+      pathParams: {},
+    });
+  }
+
+  /**
+   * @returns any
+   */
+  public async oauth({ code }: { code: string }): Promise<any> {
+    return await this.httpClient.request({
+      method: "GET",
+      url: "/api/users/oauth",
+      params: {
+        code: code,
+      },
+      pathParams: {},
+    });
+  }
+
+  /**
+   * @returns any
+   */
+  public async createAuthCode(): Promise<any> {
+    return await this.httpClient.request({
+      method: "POST",
+      url: "/api/users/oauth",
+      pathParams: {},
+    });
+  }
+
+  /**
+   * @returns any
+   */
+  public async getUser({ id }: { id: string }): Promise<any> {
+    return await this.httpClient.request({
+      method: "GET",
+      url: "/api/users/{id}",
+      pathParams: {
+        id,
+      },
+    });
+  }
+
+  /**
+   * @returns any
+   */
+  public async searchUser(): Promise<any> {
+    return await this.httpClient.request({
+      method: "POST",
+      url: "/api/users/search",
+      pathParams: {},
+    });
+  }
+
+  /**
+   * @returns any
+   */
+  public async startPhoneVerify(): Promise<any> {
+    return await this.httpClient.request({
+      method: "POST",
+      url: "/api/users/verify/phone",
+      pathParams: {},
+    });
+  }
+
+  /**
+   * @returns any
+   */
+  public async login(requestBody: LoginDto): Promise<any> {
+    return await this.httpClient.request({
+      method: "POST",
+      url: "/api/users/login",
+      pathParams: {},
+      data: requestBody,
+    });
+  }
+
+  /**
+   * @summary 创建 apikey
+   * @description 创建 apikey
+   * @returns any
+   */
+  public async createApiKey(requestBody: CreateApiKeyDto): Promise<any> {
+    return await this.httpClient.request({
+      method: "POST",
+      url: "/api/apikeys",
+      pathParams: {},
+      data: requestBody,
+    });
+  }
+
+  /**
+   * @summary 获取 apikey 列表
+   * @description 获取 apikey 列表
+   * @returns any
+   */
+  public async listApiKeys(): Promise<any> {
+    return await this.httpClient.request({
+      method: "GET",
+      url: "/api/apikeys",
+      pathParams: {},
+    });
+  }
+
+  /**
+   * @summary 废弃指定 apiKey
+   * @description 废弃指定 apiKey
+   * @returns any
+   */
+  public async revokeApiKey(apiKeyId: string): Promise<any> {
+    return await this.httpClient.request({
+      method: "POST",
+      url: "/api/apikeys/{apiKeyId}/revoke",
+      pathParams: {
+        apiKeyId,
+      },
     });
   }
 }
