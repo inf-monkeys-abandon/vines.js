@@ -1920,6 +1920,19 @@ export class VinesClient {
   /**
    * @returns any
    */
+  public async getResourceByHash({ md5 }: { md5: string }): Promise<any> {
+    return await this.httpClient.request({
+      method: "GET",
+      url: "/api/resources/md5/{md5}",
+      pathParams: {
+        md5,
+      },
+    });
+  }
+
+  /**
+   * @returns any
+   */
   public async uploadFile(): Promise<any> {
     return await this.httpClient.request({
       method: "POST",

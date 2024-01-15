@@ -34,8 +34,7 @@ export type BlockDefPropertyTypes =
   | "selectWorkflowVersion"
   | "selectVectorCollection"
   | "forkTaskJoinOnMultiOptions"
-  | 'file'
-  ;
+  | "file";
 
 export const CODE_LANGUAGES = ["javaScript", "json", "python"] as const;
 export const CODE_EXECUTION_MODES = [
@@ -159,7 +158,7 @@ export interface BlockDefPropertyValueExtractorRegex {
   regex: string | RegExp;
 }
 
-export type AssetType = "vectorDatabase" | "sdModel";
+export type AssetType = "vectorDatabase" | "sdModel" | "sqlDatabase";
 
 export interface BlockDefProperties {
   displayName: string;
