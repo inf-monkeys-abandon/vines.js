@@ -5,38 +5,14 @@ export interface IJSONObject {
 }
 
 export type BlockDefPropertyTypes =
-  | "boolean"
-  | "collection"
-  | "color"
-  | "dateTime"
-  | "fixedCollection"
-  | "hidden"
-  | "json"
-  | "notice"
-  | "multiOptions"
-  | "number"
-  | "options"
   | "string"
-  | "credentialsSelect"
-  | "resourceLocator"
-  | "curlImport"
-  | "resourceMapper"
-  // 代码输入框
-  | "jsCode"
-  // 多字段的对象
-  | "multiFieldObject"
-  | "any"
-  | "jsonObject"
-  | "nestedJsonObject"
-  | "nestedArray"
-  | "jsonString"
-  // 特殊节点
-  | "selectWorkflowVersion"
-  | "selectVectorCollection"
-  | "forkTaskJoinOnMultiOptions"
-  | "file";
+  | "file"
+  | "number"
+  | "boolean"
+  | "options"
+  | "json";
 
-export const CODE_LANGUAGES = ["javaScript", "json", "python"] as const;
+export const CODE_LANGUAGES = ["javaScript", "json", "python", "sql"] as const;
 export const CODE_EXECUTION_MODES = [
   "runOnceForAllItems",
   "runOnceForEachItem",
@@ -182,14 +158,6 @@ export interface BlockDefProperties {
   assetType?: AssetType;
 }
 
-export interface BlockDefOutput {
-  name: string;
-  displayName: string;
-  type: BlockDefPropertyTypes;
-  description?: string;
-  properties?: BlockDefOutput[];
-}
-
 export type BlockDefCategory =
   | "image" // 图像处理
   | "text" // 文本处理
@@ -241,7 +209,7 @@ export interface BlockDefinition {
   description?: string;
   icon?: string;
   input: BlockDefProperties[];
-  output: BlockDefOutput[];
+  output: BlockDefProperties[];
   categories?: BlockDefCategory[];
   rules?: BlockRuleItem[];
   extra?: BlockExtraInfo;
