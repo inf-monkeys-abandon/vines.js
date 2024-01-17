@@ -1,4 +1,66 @@
-import { BlockType } from "./BlockDefDto";
+import { BlockType, BlockDefProperties, BlockDefOutput } from "./BlockDefDto";
+
+export enum ValidationIssueType {
+  ERROR = "ERROR",
+  WANTING = "WANTING",
+}
+
+export enum ValidationReasonType {
+  VALUE_REQUIRED = "VALUE_REQUIRED",
+  VALUE_TYPE_NOT_MATCH = "VALUE_TYPE_NOT_MATCH",
+  DO_WHILE_EMPTY_LOOP_OVER = "DO_WHILE_EMPTY_LOOP_OVER",
+}
+
+export interface ValidationIssueReason {
+  type: ValidationReasonType;
+  name: string;
+}
+
+export interface WorkflowValidationIssue {
+  taskReferenceName: string;
+  issueType: ValidationIssueType;
+  detailReason: ValidationIssueReason;
+  humanMessage: {
+    en: string;
+    zh: string;
+  };
+}
+
+export enum WorkflowTriggerType {
+  // 手动
+  MANUALLY = "MANUAL",
+  // 定时
+  SCHEDULER = "SCHEDULER",
+  WEBHOOK = "WEBHOOK",
+}
+
+export interface WorkflowTriggerConfig {
+  triggerType: WorkflowTriggerType;
+  cron?: string;
+}
+
+export interface WorkflowType {
+  workflowId: string;
+  name: string;
+  version: number;
+  desc?: string;
+  logo?: string;
+  validated: boolean;
+  creatorUserId: string;
+  teamId: string;
+  pointCost?: number;
+  workflowDef: WorkflowDefinition;
+  createdTimestamp: number;
+  updatedTimestamp: number;
+  variables?: BlockDefProperties[];
+  isDeleted: false;
+  hidden?: boolean;
+  masterWorkflowId?: string;
+  masterWorkflowVersion?: number;
+  validationIssues?: WorkflowValidationIssue[];
+  trigger?: WorkflowTriggerConfig;
+  output?: BlockDefOutput[];
+}
 
 export type TaskDefinition = {
   name: string;
@@ -49,7 +111,7 @@ export type WorkflowTaskDefinition = {
     name: string;
     version: number;
   };
-  subWorkflowDef?: Partial<WorkflowDefinition>;
+  subWorkflowDef?: Partial<WorkflowType>;
   loopCondition?: string;
   loopOver?: WorkflowTaskDefinition[];
 };
@@ -69,10 +131,10 @@ export interface WorkflowDefinition {
 }
 
 export enum TaskStatus {
-  IN_PROGRESS = 'IN_PROGRESS',
-  FAILED = 'FAILED',
-  FAILED_WITH_TERMINAL_ERROR = 'FAILED_WITH_TERMINAL_ERROR',
-  COMPLETED = 'COMPLETED',
+  IN_PROGRESS = "IN_PROGRESS",
+  FAILED = "FAILED",
+  FAILED_WITH_TERMINAL_ERROR = "FAILED_WITH_TERMINAL_ERROR",
+  COMPLETED = "COMPLETED",
 }
 
 export type TaskBody = {
