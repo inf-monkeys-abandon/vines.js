@@ -10,7 +10,9 @@ export type BlockDefPropertyTypes =
   | "number"
   | "boolean"
   | "options"
-  | "json";
+  | "json"
+  // n8n 保留类型，用于渲染 markdown 文档
+  | "notice";
 
 export const CODE_LANGUAGES = ["javaScript", "json", "python", "sql"] as const;
 export const CODE_EXECUTION_MODES = [
