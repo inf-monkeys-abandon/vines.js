@@ -1,4 +1,4 @@
-import { BlockType, BlockDefProperties, BlockDefOutput } from "./BlockDefDto";
+import { BlockType, BlockDefProperties } from "./BlockDefDto";
 
 export enum ValidationIssueType {
   ERROR = "ERROR",
@@ -69,7 +69,7 @@ export interface WorkflowType {
   masterWorkflowVersion?: number;
   validationIssues?: WorkflowValidationIssue[];
   trigger?: WorkflowTriggerConfig;
-  output?: BlockDefOutput[];
+  output?: { key: string; value: string }[];
 }
 
 export type TaskDefinition = {
