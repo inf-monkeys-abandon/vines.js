@@ -14,11 +14,11 @@ export type UpdateWorkflowDefDto = {
     /**
      * 工作流描述
      */
-    desc?: string;
+    description?: string;
     /**
      * 工作流 LOGO
      */
-    logo?: string;
+    iconUrl?: string;
     /**
      * 工作流是否激活
      */

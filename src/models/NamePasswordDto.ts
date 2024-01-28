@@ -2,5 +2,5 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type WorkflowTemplateCategory = {
+export type NamePasswordDto = {
 };

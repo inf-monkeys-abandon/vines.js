@@ -15,6 +15,10 @@ export type SearchWorkflowExecutionsDto = {
      */
     workflowId?: string;
     /**
+     * 根据 workflow 执行 ID 进行筛选
+     */
+    workflowInstanceId?: string;
+    /**
      * 根据创建用户 ID 进行筛选
      */
     creatorUserId?: string;

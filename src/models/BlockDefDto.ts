@@ -78,6 +78,7 @@ export interface BlockDefPropertyTypeOptions {
   sortable?: boolean; // Supported when "multipleValues" set to true
   expirable?: boolean; // Supported by: hidden (only in the credentials)
   uploadOptions?: UploadOptions;
+  assetType?: AssetType;
   [key: string]: any;
 }
 
@@ -136,7 +137,7 @@ export interface BlockDefPropertyValueExtractorRegex {
   regex: string | RegExp;
 }
 
-export type AssetType = "vectorDatabase" | "sdModel" | "sqlDatabase";
+export type AssetType = 'llm-model' | 'sd-model' | 'workflow' | 'workflow-view' | 'media-file' | 'table-collection' | 'text-collection' | 'canvas' | 'workflow-template' | 'block';
 
 export interface BlockDefProperties {
   displayName: string;

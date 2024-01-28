@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@io-orkes/conductor-javascript':
+    specifier: ^2.0.0
+    version: 2.0.0
   '@types/axios':
     specifier: ^0.14.0
     version: registry.npmmirror.com/@types/axios@0.14.0
@@ -27,6 +30,11 @@ devDependencies:
     version: 4.5.5
 
 packages:
+
+  /@io-orkes/conductor-javascript@2.0.0:
+    resolution: {integrity: sha512-JUCA3yepoCxrcLMB69SICoYzBxufhFoxVkA/URH9Q8K5P56xGCbeTjv7huNaEbsfYgL0S5HpV0YPowWQ9WHNLA==}
+    engines: {node: '>=18'}
+    dev: false
 
   /asynckit@0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
