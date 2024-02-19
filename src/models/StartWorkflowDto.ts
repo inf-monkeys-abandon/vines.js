@@ -15,4 +15,8 @@ export type StartWorkflowDto = {
      * 对应的 chat session 会话 id
      */
     chatSessionId?: string;
+    /**
+     * 是否等待工作流执行完成之后再返回
+     */
+    waitForWorkflowFinished?: boolean;
 };

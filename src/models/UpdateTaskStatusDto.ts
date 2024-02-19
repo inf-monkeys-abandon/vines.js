@@ -10,24 +10,9 @@ export type UpdateTaskStatusDto = {
     /**
      * Task 状态
      */
-    status?: UpdateTaskStatusDto.status;
+    status?: any;
     /**
      * 输出结果
      */
     outputData?: any;
 };
-
-export namespace UpdateTaskStatusDto {
-
-    /**
-     * Task 状态
-     */
-    export enum status {
-        IN_PROGRESS = 'IN_PROGRESS',
-        FAILED = 'FAILED',
-        FAILED_WITH_TERMINAL_ERROR = 'FAILED_WITH_TERMINAL_ERROR',
-        COMPLETED = 'COMPLETED',
-    }
-
-
-}

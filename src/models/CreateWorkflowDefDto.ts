@@ -25,6 +25,10 @@ export type CreateWorkflowDefDto = {
      */
     masterWorkflowId?: string;
     /**
+     * 主工作流 ID
+     */
+    masterWorkflowVersion?: string;
+    /**
      * workflow 全局变量（非 conductor 能力）
      */
     variables?: Array<string>;
