@@ -1,4 +1,4 @@
-import {
+import type {
   DoWhileTaskDef,
   EventTaskDef,
   ForkJoinDynamicDef,
@@ -71,7 +71,7 @@ export interface MonkeySubWorkflowTaskDef extends SubWorkflowTaskDef {
   subWorkflow?: DeepPartial<MonkeyWorkflow>;
 }
 
-declare type MonkeyTaskDefTypes =
+export declare type MonkeyTaskDefTypes =
   | SimpleTaskDef
   | DoWhileTaskDef
   | EventTaskDef
