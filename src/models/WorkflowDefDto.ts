@@ -102,7 +102,7 @@ export interface MonkeyWorkflow {
   creatorUserId: string;
   teamId: string;
   pointCost?: number;
-  workflowDef: MonkeyWorkflowDef;
+  tasks: MonkeyTaskDefTypes[];
   createdTimestamp: number;
   updatedTimestamp: number;
   variables?: BlockDefProperties[];
