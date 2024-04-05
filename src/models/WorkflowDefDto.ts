@@ -94,7 +94,7 @@ export interface MonkeyWorkflowDef extends WorkflowDef {
 
 export interface MonkeyWorkflow {
   workflowId: string;
-  name: string;
+  displayName: string;
   version: number;
   description?: string;
   iconUrl?: string;
