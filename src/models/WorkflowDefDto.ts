@@ -113,4 +113,10 @@ export interface MonkeyWorkflow {
   validationIssues?: WorkflowValidationIssue[];
   trigger?: WorkflowTriggerConfig;
   output?: { key: string; value: string }[];
+  rateLimiter?: {
+    enabled: boolean;
+    max: number;
+    windowMs: number;
+  };
+  exposeOpenaiCompatibleInterface?: boolean;
 }
