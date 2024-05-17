@@ -135,7 +135,8 @@ export type AssetType =
   | "fork-join-branch"
   | "workflow-version"
   | "comfyui-server"
-  | "tools";
+  | "tools"
+  | "comfyui-workflow";
 
 export interface BlockDefProperties {
   displayName: string;
