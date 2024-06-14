@@ -119,4 +119,5 @@ export interface MonkeyWorkflow {
     windowMs: number;
   };
   exposeOpenaiCompatibleInterface?: boolean;
+  openaiModelName?: string;
 }
