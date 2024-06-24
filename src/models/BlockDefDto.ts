@@ -123,6 +123,7 @@ export interface BlockDefPropertyValueExtractorRegex {
 
 export type AssetType =
   | "llm-model"
+  | "llm-channel"
   | "sd-model"
   | "workflow"
   | "workflow-view"
